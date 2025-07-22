@@ -7,7 +7,6 @@ pre-commit:
   parallel: true
   commands:
     check:
-      root: "web-translator/"
       glob: "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}"
       exclude:
         - "specs/"
