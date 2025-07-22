@@ -1,4 +1,4 @@
-import { streamText, createDataStreamResponse, formatDataStreamPart } from "ai";
+import { createDataStreamResponse, formatDataStreamPart, streamText } from "ai";
 import { createAIGateway } from "../../lib/ai-gateway";
 import { generateCacheKey } from "../../lib/cache";
 import type { Route } from "./+types/completion";

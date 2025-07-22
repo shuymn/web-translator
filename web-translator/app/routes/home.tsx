@@ -1,6 +1,6 @@
 import { useCompletion } from "@ai-sdk/react";
 import { ArrowRightLeft, Check, Copy, FileText, Languages, Loader2 } from "lucide-react";
-import { useState, useMemo, useRef } from "react";
+import { useMemo, useState } from "react";
 import { MarkdownPreview } from "../components/markdown-preview";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { Button } from "../components/ui/button";
@@ -60,8 +60,12 @@ export default function TranslatorPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="min-w-[150px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">英語</SelectItem>
-                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">日本語</SelectItem>
+                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                    英語
+                  </SelectItem>
+                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                    日本語
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <div className="flex items-center gap-2">
@@ -87,7 +91,9 @@ export default function TranslatorPage() {
                 onChange={(e) => setInput(e.target.value)}
               />
             </CardContent>
-            <CardFooter className="p-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500">文字数: {input.length}</CardFooter>
+            <CardFooter className="p-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+              文字数: {input.length}
+            </CardFooter>
           </Card>
 
           {/* Swap Button */}
@@ -96,8 +102,9 @@ export default function TranslatorPage() {
               type="button"
               size="icon"
               onClick={handleSwapLanguages}
-              className={`bg-white dark:bg-slate-800 rounded-full border-2 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-white dark:disabled:hover:bg-slate-800 ${isSwapping ? "scale-95 shadow-sm" : "scale-100"
-                }`}
+              className={`bg-white dark:bg-slate-800 rounded-full border-2 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-white dark:disabled:hover:bg-slate-800 ${
+                isSwapping ? "scale-95 shadow-sm" : "scale-100"
+              }`}
               disabled={isLoading || !hasCompletion}
             >
               <ArrowRightLeft className="w-5 h-5 text-slate-600 dark:text-slate-300" />
@@ -112,8 +119,12 @@ export default function TranslatorPage() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent className="min-w-[150px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">日本語</SelectItem>
-                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">英語</SelectItem>
+                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                    日本語
+                  </SelectItem>
+                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                    英語
+                  </SelectItem>
                 </SelectContent>
               </Select>
               <div className="flex items-center gap-2">
@@ -133,11 +144,7 @@ export default function TranslatorPage() {
                   disabled={!hasCompletion}
                   className="bg-indigo-600 hover:bg-indigo-700 text-white transition-opacity duration-200"
                 >
-                  {copied ? (
-                    <Check className="w-4 h-4 mr-2" />
-                  ) : (
-                    <Copy className="w-4 h-4 mr-2" />
-                  )}
+                  {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
                   {copied ? "コピーしました" : "コピーする"}
                 </Button>
                 <Button
@@ -166,7 +173,9 @@ export default function TranslatorPage() {
                 <span className="text-slate-400">翻訳結果がここに表示されます</span>
               )}
             </CardContent>
-            <CardFooter className="p-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500">文字数: {completion.length}</CardFooter>
+            <CardFooter className="p-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+              文字数: {completion.length}
+            </CardFooter>
           </Card>
         </main>
       </form>
