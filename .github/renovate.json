@@ -1,69 +1,11 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:recommended", ":dependencyDashboard", ":semanticCommitTypeAll(chore)", ":enablePreCommit"],
-  "description": "Renovate configuration for web-translator project",
+  "extends": ["config:best-practices", ":dependencyDashboard", ":semanticCommitTypeAll(chore)", ":enablePreCommit"],
   "timezone": "Asia/Tokyo",
   "schedule": ["after 10pm and before 5am on every weekday", "every weekend"],
   "labels": ["dependencies", "renovate"],
-  "assignees": [],
-  "reviewers": [],
-  "enabledManagers": ["npm", "github-actions"],
+  "assignees": ["@shuymn"],
   "packageRules": [
-    {
-      "description": "Automatically merge minor and patch updates for dev dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
-      "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true,
-      "automergeSchedule": ["after 10pm and before 5am every weekday", "every weekend"]
-    },
-    {
-      "description": "Group React and related packages",
-      "matchPackagePatterns": ["^react", "^@types/react", "react-dom", "@types/react-dom"],
-      "groupName": "React packages"
-    },
-    {
-      "description": "Group AI SDK packages",
-      "matchPackagePatterns": ["^@ai-sdk/", "^ai$"],
-      "groupName": "AI SDK packages"
-    },
-    {
-      "description": "Group Cloudflare packages",
-      "matchPackagePatterns": ["^@cloudflare/", "wrangler"],
-      "groupName": "Cloudflare packages"
-    },
-    {
-      "description": "Group testing packages",
-      "matchPackagePatterns": ["^@testing-library/", "vitest", "jsdom"],
-      "groupName": "Testing packages"
-    },
-    {
-      "description": "Group Tailwind CSS packages",
-      "matchPackagePatterns": ["^tailwindcss", "^tailwind-", "^@tailwindcss/", "autoprefixer", "postcss"],
-      "groupName": "Tailwind CSS packages"
-    },
-    {
-      "description": "Group Vite and related packages",
-      "matchPackagePatterns": ["^vite", "^@vitejs/"],
-      "groupName": "Vite packages"
-    },
-    {
-      "description": "Group Biome tooling packages",
-      "matchPackagePatterns": ["^@biomejs/"],
-      "groupName": "Biome packages"
-    },
-    {
-      "description": "Require approval for major updates",
-      "matchUpdateTypes": ["major"],
-      "automerge": false,
-      "assignees": ["@shuymn"]
-    },
-    {
-      "description": "Pin GitHub Actions to commit SHA",
-      "matchManagers": ["github-actions"],
-      "pinDigests": true
-    },
     {
       "description": "Disable updates for React Router v7 canary versions",
       "matchPackageNames": ["react-router", "@react-router/dev"],
@@ -71,33 +13,14 @@
       "enabled": false
     },
     {
-      "description": "Security updates should be applied immediately",
-      "matchDatasources": ["npm"],
-      "prPriority": 10,
-      "vulnerabilityAlerts": {
-        "labels": ["security"],
-        "assignees": ["@shuymn"],
-        "reviewers": ["@shuymn"],
-        "automerge": true
-      }
+      "description": "Auto-merge minor and patch dev dependencies",
+      "matchDepTypes": ["devDependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
     }
   ],
   "prConcurrentLimit": 3,
-  "prCreation": "not-pending",
-  "prHourlyLimit": 2,
-  "rebaseWhen": "behind-base-branch",
-  "semanticCommits": "enabled",
-  "commitMessagePrefix": "chore(deps):",
-  "commitMessageTopic": "{{depName}}",
-  "commitMessageExtra": "to {{newVersion}}",
-  "rangeStrategy": "replace",
-  "postUpdateOptions": ["pnpmDedupe"],
-  "ignorePaths": ["**/node_modules/**", "**/build/**", "**/dist/**", "**/.next/**"],
-  "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Dependency Dashboard",
-  "suppressNotifications": ["prIgnoreNotification"],
-  "recreateClosed": true,
-  "rebaseLabel": "rebase",
-  "stopUpdatingLabel": "stop-updating",
   "minimumReleaseAge": "3 days"
 }
