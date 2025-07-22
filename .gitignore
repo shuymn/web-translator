@@ -13,9 +13,6 @@ logs
 npm-debug.log
 yarn-error.log
 
-# Public directory (React Router)
-public
-
 # Cache
 .cache
 
