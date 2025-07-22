@@ -1,12 +1,36 @@
-node_modules
+# Dependencies
+node_modules/
+/node_modules/
+
+# Build outputs
 target
 dist
+build/
+/.react-router/
+
+# Logs
 logs
+npm-debug.log
+yarn-error.log
+
+# Public directory (React Router)
 public
+
+# Cache
 .cache
+
+# IDE
 .vscode
 .DS_Store
 .idea
+
+# Next.js (legacy, can be removed if no longer needed)
 .next
-yarn-error.log
-npm-debug.log
+
+# TypeScript
+*.tsbuildinfo
+
+# Cloudflare
+.mf
+.wrangler
+.dev.vars*
