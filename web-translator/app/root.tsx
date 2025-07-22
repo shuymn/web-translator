@@ -18,36 +18,10 @@ export const links: Route.LinksFunction = () => [
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" className="dark">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: Safe theme initialization script
-          dangerouslySetInnerHTML={{
-            __html: `
-              // Prevent flash of wrong theme on initial load
-              (function() {
-                const theme = localStorage.getItem('theme');
-                const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                const shouldBeDark = theme === 'dark' || (!theme && systemPrefersDark);
-                
-                if (shouldBeDark) {
-                  document.documentElement.classList.add('dark');
-                }
-                
-                // Keep localStorage in sync when class changes
-                new MutationObserver(() => {
-                  const isDark = document.documentElement.classList.contains('dark');
-                  localStorage.setItem('theme', isDark ? 'dark' : 'light');
-                }).observe(document.documentElement, { 
-                  attributes: true, 
-                  attributeFilter: ['class'] 
-                });
-              })();
-            `,
-          }}
-        />
         <Meta />
         <Links />
       </head>

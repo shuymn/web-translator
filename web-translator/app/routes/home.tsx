@@ -49,21 +49,21 @@ export default function TranslatorPage() {
   const hasCompletion = useMemo(() => !!completion && completion.length > 0, [completion]);
 
   return (
-    <div className="flex flex-col h-screen bg-slate-50 dark:bg-slate-900 font-sans">
+    <div className="flex flex-col h-screen bg-slate-900 font-sans">
       <form onSubmit={handleTranslate} className="flex-1 flex flex-col min-h-0">
         <main className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 relative min-h-0">
           {/* Input Card */}
-          <Card className="w-full flex flex-col border-blue-300 dark:border-blue-800 min-h-0">
-            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-200 dark:border-slate-700">
+          <Card className="w-full flex flex-col border-blue-800 min-h-0">
+            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
               <Select value={sourceLang} onValueChange={(value) => setSourceLang(value as "en" | "ja")}>
                 <SelectTrigger className="w-[150px] text-sm font-semibold border-0 focus:ring-0 mb-0">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="min-w-[150px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                <SelectContent className="min-w-[150px] bg-slate-800 border border-slate-700">
+                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
                     英語
                   </SelectItem>
-                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
                     日本語
                   </SelectItem>
                 </SelectContent>
@@ -86,12 +86,12 @@ export default function TranslatorPage() {
             <CardContent className="p-0 flex-1 min-h-0">
               <Textarea
                 placeholder="翻訳したいテキストを入力してください"
-                className="w-full h-full resize-none border-0 focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400 focus-visible:ring-offset-0 p-4 text-base"
+                className="w-full h-full resize-none border-0 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-0 p-4 text-base"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
               />
             </CardContent>
-            <CardFooter className="p-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+            <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500">
               文字数: {input.length}
             </CardFooter>
           </Card>
@@ -102,27 +102,27 @@ export default function TranslatorPage() {
               type="button"
               size="icon"
               onClick={handleSwapLanguages}
-              className={`bg-white dark:bg-slate-800 rounded-full border-2 border-slate-300 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-white dark:disabled:hover:bg-slate-800 ${
+              className={`bg-slate-800 rounded-full border-2 border-slate-600 hover:bg-slate-700 transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-slate-800 ${
                 isSwapping ? "scale-95 shadow-sm" : "scale-100"
               }`}
               disabled={isLoading || !hasCompletion}
             >
-              <ArrowRightLeft className="w-5 h-5 text-slate-600 dark:text-slate-300" />
+              <ArrowRightLeft className="w-5 h-5 text-slate-300" />
             </Button>
           </div>
 
           {/* Output Card */}
-          <Card className="w-full flex flex-col border-purple-200 dark:border-purple-800 min-h-0">
-            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-200 dark:border-slate-700">
+          <Card className="w-full flex flex-col border-purple-800 min-h-0">
+            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
               <Select value={targetLang} onValueChange={(value) => setTargetLang(value as "en" | "ja")}>
                 <SelectTrigger className="w-[150px] text-sm font-semibold border-0 focus:ring-0 mb-0">
                   <SelectValue />
                 </SelectTrigger>
-                <SelectContent className="min-w-[150px] bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                <SelectContent className="min-w-[150px] bg-slate-800 border border-slate-700">
+                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
                     日本語
                   </SelectItem>
-                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-100 dark:hover:bg-slate-700">
+                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
                     英語
                   </SelectItem>
                 </SelectContent>
@@ -160,20 +160,18 @@ export default function TranslatorPage() {
                 </Button>
               </div>
             </CardHeader>
-            <CardContent className="p-4 flex-1 bg-purple-50/30 dark:bg-purple-900/10 overflow-y-auto min-h-0">
+            <CardContent className="p-4 flex-1 bg-purple-900/10 overflow-y-auto min-h-0">
               {hasCompletion ? (
                 showPreview ? (
                   <MarkdownPreview content={completion} />
                 ) : (
-                  <div className="w-full whitespace-pre-wrap text-base text-slate-800 dark:text-slate-100">
-                    {completion}
-                  </div>
+                  <div className="w-full whitespace-pre-wrap text-base text-slate-100">{completion}</div>
                 )
               ) : (
                 <span className="text-slate-400">翻訳結果がここに表示されます</span>
               )}
             </CardContent>
-            <CardFooter className="p-3 border-t border-slate-200 dark:border-slate-700 text-xs text-slate-500">
+            <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500">
               文字数: {completion.length}
             </CardFooter>
           </Card>
