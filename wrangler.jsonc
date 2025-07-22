@@ -39,7 +39,7 @@
     "OPENAI_API_KEY": "your-openai-api-key",
     "CF_ACCOUNT_ID": "your-cf-account-id",
     "AI_GATEWAY_ID": "your-ai-gateway-id"
-  }
+  },
   /**
    * Note: Use secrets to store sensitive data.
    * https://developers.cloudflare.com/workers/configuration/secrets/
@@ -48,7 +48,9 @@
    * Static Assets
    * https://developers.cloudflare.com/workers/static-assets/binding/
    */
-  // "assets": { "directory": "./public/", "binding": "ASSETS" },
+  "assets": {
+    "directory": "./build/client"
+  }
   /**
    * Service Bindings (communicate between multiple Workers)
    * https://developers.cloudflare.com/workers/wrangler/configuration/#service-bindings
