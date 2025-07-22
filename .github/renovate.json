@@ -1,21 +1,43 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", ":dependencyDashboard", ":semanticCommitTypeAll(chore)", ":enablePreCommit"],
+  "extends": [
+    "config:best-practices",
+    ":dependencyDashboard",
+    ":semanticCommitTypeAll(chore)",
+    ":enablePreCommit"
+  ],
   "timezone": "Asia/Tokyo",
-  "schedule": ["after 10pm and before 5am on every weekday", "every weekend"],
-  "labels": ["dependencies", "renovate"],
-  "assignees": ["@shuymn"],
+  "schedule": [
+    "after 10pm every weekday",
+    "every weekend",
+    "before 5am every weekday"
+  ],
+  "labels": [
+    "dependencies",
+    "renovate"
+  ],
+  "assignees": [
+    "@shuymn"
+  ],
   "packageRules": [
     {
       "description": "Disable updates for React Router v7 canary versions",
-      "matchPackageNames": ["react-router", "@react-router/dev"],
+      "matchPackageNames": [
+        "react-router",
+        "@react-router/dev"
+      ],
       "matchCurrentVersion": "/canary/",
       "enabled": false
     },
     {
       "description": "Auto-merge minor and patch dev dependencies",
-      "matchDepTypes": ["devDependencies"],
-      "matchUpdateTypes": ["minor", "patch"],
+      "matchDepTypes": [
+        "devDependencies"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
