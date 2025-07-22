@@ -5,4 +5,8 @@ import { defineConfig } from "vite";
 
 export default defineConfig({
   plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), tailwindcss(), reactRouter()],
+  ssr: {
+    target: "webworker",
+    resolve: { conditions: ["workerd", "browser"] },
+  },
 });
