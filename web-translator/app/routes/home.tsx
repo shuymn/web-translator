@@ -18,9 +18,15 @@ export function meta() {
   ];
 }
 
+const LANGUAGES = {
+  English: "en",
+  Japanese: "ja",
+} as const;
+type Language = (typeof LANGUAGES)[keyof typeof LANGUAGES];
+
 export default function TranslatorPage() {
-  const [sourceLang, setSourceLang] = useState<"en" | "ja">("en");
-  const [targetLang, setTargetLang] = useState<"en" | "ja">("ja");
+  const [sourceLang, setSourceLang] = useState<Language>(LANGUAGES.English);
+  const targetLang = sourceLang === LANGUAGES.English ? LANGUAGES.Japanese : LANGUAGES.English; // automatically switch targetLang
   const [showPreview, setShowPreview] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
@@ -35,8 +41,7 @@ export default function TranslatorPage() {
 
   const handleSwapLanguages = () => {
     setIsSwapping(true);
-    setSourceLang(targetLang);
-    setTargetLang(sourceLang);
+    setSourceLang(targetLang); // targetLang switches automatically
     setInput(completion);
     setTimeout(() => setIsSwapping(false), 300);
   };
@@ -55,9 +60,9 @@ export default function TranslatorPage() {
           {/* Input Card */}
           <Card className="w-full flex flex-col border-blue-800 min-h-0">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-0">
                 <span className="text-sm font-semibold text-slate-300">原文:</span>
-                <Select value={sourceLang} onValueChange={(value) => setSourceLang(value as "en" | "ja")}>
+                <Select value={sourceLang} onValueChange={(value) => setSourceLang(value as Language)}>
                   <SelectTrigger className="w-[100px] text-sm font-semibold border border-slate-700 focus:ring-0 mb-0 bg-slate-800 hover:bg-slate-700">
                     <SelectValue />
                   </SelectTrigger>
@@ -145,21 +150,11 @@ export default function TranslatorPage() {
           {/* Output Card */}
           <Card className="w-full flex flex-col border-purple-800 min-h-0">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-2 mb-0">
                 <span className="text-sm font-semibold text-slate-300">訳文:</span>
-                <Select value={targetLang} onValueChange={(value) => setTargetLang(value as "en" | "ja")}>
-                  <SelectTrigger className="w-[100px] text-sm font-semibold border border-slate-700 focus:ring-0 mb-0 bg-slate-800 hover:bg-slate-700">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent className="min-w-[100px] bg-slate-800 border border-slate-700">
-                    <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
-                      日本語
-                    </SelectItem>
-                    <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
-                      英語
-                    </SelectItem>
-                  </SelectContent>
-                </Select>
+                <div className="w-auto h-10 flex items-center px-3 text-sm font-semibold bg-slate-800 rounded-md border border-slate-700">
+                  {targetLang === LANGUAGES.Japanese ? "日本語" : "英語"}
+                </div>
               </div>
               <div className="flex items-center gap-2">
                 <Button
