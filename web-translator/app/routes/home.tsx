@@ -55,19 +55,22 @@ export default function TranslatorPage() {
           {/* Input Card */}
           <Card className="w-full flex flex-col border-blue-800 min-h-0">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
-              <Select value={sourceLang} onValueChange={(value) => setSourceLang(value as "en" | "ja")}>
-                <SelectTrigger className="w-[100px] text-sm font-semibold border border-slate-700 focus:ring-0 mb-0 bg-slate-800 hover:bg-slate-700">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="min-w-[100px] bg-slate-800 border border-slate-700">
-                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
-                    英語
-                  </SelectItem>
-                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
-                    日本語
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-300">原文:</span>
+                <Select value={sourceLang} onValueChange={(value) => setSourceLang(value as "en" | "ja")}>
+                  <SelectTrigger className="w-[100px] text-sm font-semibold border border-slate-700 focus:ring-0 mb-0 bg-slate-800 hover:bg-slate-700">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="min-w-[100px] bg-slate-800 border border-slate-700">
+                    <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
+                      英語
+                    </SelectItem>
+                    <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
+                      日本語
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="flex items-center gap-2">
                 <Button
                   type="submit"
@@ -142,19 +145,22 @@ export default function TranslatorPage() {
           {/* Output Card */}
           <Card className="w-full flex flex-col border-purple-800 min-h-0">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
-              <Select value={targetLang} onValueChange={(value) => setTargetLang(value as "en" | "ja")}>
-                <SelectTrigger className="w-[100px] text-sm font-semibold border border-slate-700 focus:ring-0 mb-0 bg-slate-800 hover:bg-slate-700">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent className="min-w-[100px] bg-slate-800 border border-slate-700">
-                  <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
-                    日本語
-                  </SelectItem>
-                  <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
-                    英語
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+              <div className="flex items-center gap-2">
+                <span className="text-sm font-semibold text-slate-300">訳文:</span>
+                <Select value={targetLang} onValueChange={(value) => setTargetLang(value as "en" | "ja")}>
+                  <SelectTrigger className="w-[100px] text-sm font-semibold border border-slate-700 focus:ring-0 mb-0 bg-slate-800 hover:bg-slate-700">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent className="min-w-[100px] bg-slate-800 border border-slate-700">
+                    <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
+                      日本語
+                    </SelectItem>
+                    <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
+                      英語
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
               <div className="flex items-center gap-2">
                 <Button
                   key="copy-button"
