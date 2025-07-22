@@ -37,7 +37,7 @@ jobs:
       - name: Run linter and formatter check
         run: |
           pnpm lint
-          pnpm biome check --formatter-enabled=true --linter-enabled=false --organize-imports-enabled=false
+          pnpm exec biome format
 
   typecheck:
     name: Type Check
