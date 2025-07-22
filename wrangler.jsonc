@@ -14,9 +14,6 @@
       "id": "PLACEHOLDER_WILL_BE_CREATED"
     }
   ],
-  "ai": {
-    "binding": "AI"
-  },
   "observability": {
     "enabled": true
   },
