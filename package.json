@@ -2,6 +2,7 @@
   "name": "web-translator",
   "private": true,
   "type": "module",
+  "packageManager": "pnpm@10.8.1",
   "scripts": {
     "build": "react-router build",
     "cf-typegen": "wrangler types",
