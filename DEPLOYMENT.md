@@ -2,7 +2,7 @@
 
 ## Prerequisites
 - Cloudflare account with Workers enabled
-- OpenAI API key with access to o4-mini model
+- OpenAI API key with access to gpt-4.1-nano model
 - Wrangler CLI installed (`pnpm install -g wrangler`)
 
 ## Phase 7: Deployment Preparation
@@ -90,7 +90,7 @@ pnpm deploy
 
 | Variable | Description | Where to Get |
 |----------|-------------|--------------|
-| `OPENAI_API_KEY` | OpenAI API key for o4-mini model | [OpenAI Platform](https://platform.openai.com/api-keys) |
+| `OPENAI_API_KEY` | OpenAI API key for gpt-4.1-nano model | [OpenAI Platform](https://platform.openai.com/api-keys) |
 | `CF_ACCOUNT_ID` | Your Cloudflare Account ID | Cloudflare Dashboard > Right sidebar |
 | `AI_GATEWAY_ID` | AI Gateway ID | AI > AI Gateway in Cloudflare Dashboard |
 
@@ -107,7 +107,7 @@ pnpm deploy
 ### Translation Not Working
 1. Check worker logs: `wrangler tail`
 2. Verify all secrets are set correctly
-3. Ensure OpenAI API key has access to o4-mini model
+3. Ensure OpenAI API key has access to gpt-4.1-nano model
 4. Check AI Gateway logs for API errors
 
 ### Caching Issues
