@@ -19,14 +19,8 @@
       "automergeSchedule": ["after 10pm and before 5am every weekday", "every weekend"]
     },
     {
-      "description": "Group all non-major updates together",
-      "matchUpdateTypes": ["minor", "patch"],
-      "groupName": "all non-major dependencies",
-      "groupSlug": "all-minor-patch"
-    },
-    {
       "description": "Group React and related packages",
-      "matchPackagePatterns": ["^react", "^@types/react"],
+      "matchPackagePatterns": ["^react", "^@types/react", "react-dom", "@types/react-dom"],
       "groupName": "React packages"
     },
     {
@@ -45,9 +39,19 @@
       "groupName": "Testing packages"
     },
     {
-      "description": "Group Tailwind packages",
-      "matchPackagePatterns": ["tailwind"],
-      "groupName": "Tailwind packages"
+      "description": "Group Tailwind CSS packages",
+      "matchPackagePatterns": ["^tailwindcss", "^tailwind-", "^@tailwindcss/", "autoprefixer", "postcss"],
+      "groupName": "Tailwind CSS packages"
+    },
+    {
+      "description": "Group Vite and related packages",
+      "matchPackagePatterns": ["^vite", "^@vitejs/"],
+      "groupName": "Vite packages"
+    },
+    {
+      "description": "Group Biome tooling packages",
+      "matchPackagePatterns": ["^@biomejs/"],
+      "groupName": "Biome packages"
     },
     {
       "description": "Require approval for major updates",
@@ -69,7 +73,6 @@
     {
       "description": "Security updates should be applied immediately",
       "matchDatasources": ["npm"],
-      "matchUpdateTypes": ["patch"],
       "prPriority": 10,
       "vulnerabilityAlerts": {
         "labels": ["security"],
@@ -87,7 +90,7 @@
   "commitMessagePrefix": "chore(deps):",
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
-  "rangeStrategy": "bump",
+  "rangeStrategy": "replace",
   "postUpdateOptions": ["pnpmDedupe"],
   "ignorePaths": ["**/node_modules/**", "**/build/**", "**/dist/**", "**/.next/**"],
   "dependencyDashboard": true,
