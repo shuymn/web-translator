@@ -25,7 +25,7 @@ export default function TranslatorPage() {
   const [copied, setCopied] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
 
-  const { completion, input, setInput, handleSubmit, isLoading, error } = useCompletion({
+  const { completion, input, setInput, handleSubmit, isLoading, error, complete } = useCompletion({
     api: "/api/completion",
     body: {
       sourceLang,
@@ -89,6 +89,34 @@ export default function TranslatorPage() {
                 className="w-full h-full resize-none border-0 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-0 p-4 text-base"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
+                onPaste={async (e) => {
+                  // Don't trigger translation if a request is already in flight
+                  if (isLoading) {
+                    return;
+                  }
+
+                  // Prevent the browser's default paste behavior
+                  e.preventDefault();
+
+                  // Get the text from the clipboard
+                  const pastedText = e.clipboardData.getData("text");
+                  if (!pastedText || !pastedText.trim()) {
+                    return;
+                  }
+
+                  // Manually construct the new value by inserting the pasted text
+                  const target = e.currentTarget;
+                  const newText =
+                    target.value.substring(0, target.selectionStart) +
+                    pastedText +
+                    target.value.substring(target.selectionEnd);
+
+                  // Update the input state in React
+                  setInput(newText);
+
+                  // Directly trigger the translation with the new, complete text
+                  await complete(newText);
+                }}
               />
             </CardContent>
             <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500">
