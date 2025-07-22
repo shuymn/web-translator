@@ -88,11 +88,6 @@
   "commitMessageTopic": "{{depName}}",
   "commitMessageExtra": "to {{newVersion}}",
   "rangeStrategy": "bump",
-  "lockFileMaintenance": {
-    "enabled": true,
-    "schedule": ["before 5am on monday"],
-    "commitMessageAction": "update lockfile"
-  },
   "postUpdateOptions": ["pnpmDedupe"],
   "ignorePaths": ["**/node_modules/**", "**/build/**", "**/dist/**", "**/.next/**"],
   "dependencyDashboard": true,
