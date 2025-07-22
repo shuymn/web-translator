@@ -82,10 +82,10 @@ importers:
         specifier: ^20
         version: 20.19.9
       '@types/react':
-        specifier: ^19.1.8
+        specifier: 19.1.8
         version: 19.1.8
       '@types/react-dom':
-        specifier: ^19.1.6
+        specifier: 19.1.6
         version: 19.1.6(@types/react@19.1.8)
       jsdom:
         specifier: ^26.1.0
