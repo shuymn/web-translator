@@ -138,7 +138,7 @@ export default function TranslatorPage() {
           </Card>
 
           {/* Swap Button - Vertical Layout (default and portrait) */}
-          <div className="xl:hidden portrait:flex flex items-center justify-center py-2 -my-1 z-10">
+          <div className="xl:hidden portrait:flex relative flex items-center justify-center h-0 z-10">
             <Button
               type="button"
               size="icon"
