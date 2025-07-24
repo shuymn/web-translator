@@ -99,16 +99,16 @@
 }
 
 /* Enhanced vertical layout for portrait displays */
-@media (max-aspect-ratio: 3/4) and (min-width: 768px) {
+@media (max-aspect-ratio: 3 / 4) and (min-width: 768px) {
   /* Force vertical layout for portrait monitors regardless of width */
   .portrait\:flex-col {
     flex-direction: column !important;
   }
-  
+
   .portrait\:hidden {
     display: none !important;
   }
-  
+
   .portrait\:flex {
     display: flex !important;
   }
