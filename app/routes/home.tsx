@@ -61,9 +61,9 @@ export default function TranslatorPage() {
   return (
     <div className="flex flex-col h-screen bg-background font-sans">
       <form onSubmit={handleTranslate} className="flex-1 flex flex-col min-h-0">
-        <main className="flex-1 flex flex-col xl:flex-row portrait:flex-col gap-3 xl:gap-4 p-4 xl:p-6 relative min-h-0 overflow-hidden">
+        <main className="flex-1 flex flex-col xl:flex-row portrait:flex-col gap-4 p-4 relative min-h-0 overflow-y-auto xl:overflow-visible">
           {/* Input Card */}
-          <Card className="w-full flex flex-col border-input-card-border min-h-0 flex-1 xl:flex-initial">
+          <Card className="w-full flex flex-col border-input-card-border min-h-0 flex-1">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-border">
               <div className="flex items-center gap-2 mb-0">
                 <span className="text-sm font-semibold text-muted-foreground">原文:</span>
@@ -138,7 +138,7 @@ export default function TranslatorPage() {
           </Card>
 
           {/* Swap Button - Vertical Layout (default and portrait) */}
-          <div className="xl:hidden portrait:flex relative flex items-center justify-center h-0 z-10">
+          <div className="xl:hidden portrait:flex relative flex items-center justify-center h-0 -my-2 z-10">
             <Button
               type="button"
               size="icon"
@@ -168,7 +168,7 @@ export default function TranslatorPage() {
           </div>
 
           {/* Output Card */}
-          <Card className="w-full flex flex-col border-output-card-border min-h-0 flex-1 xl:flex-initial">
+          <Card className="w-full flex flex-col border-output-card-border min-h-0 flex-1">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-border">
               <div className="flex items-center gap-2 mb-0">
                 <span className="text-sm font-semibold text-muted-foreground">訳文:</span>
