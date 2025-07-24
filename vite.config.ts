@@ -1,9 +1,8 @@
 import { execSync } from "node:child_process";
-import path from "node:path";
-import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
+import tsconfigPaths from "vite-tsconfig-paths";
 
 // Get git commit hash at build time
 const commitHash = (() => {
@@ -29,14 +28,7 @@ const githubRepo = (() => {
 })();
 
 export default defineConfig({
-  plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), tailwindcss(), reactRouter()],
-  ssr: {
-    target: "webworker",
-    resolve: { conditions: ["workerd", "browser"] },
-  },
-  resolve: {
-    alias: { "@": path.resolve(__dirname, "./app") },
-  },
+  plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
   define: {
     __COMMIT_HASH__: JSON.stringify(commitHash),
     __GITHUB_REPO__: JSON.stringify(githubRepo),
