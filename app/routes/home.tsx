@@ -142,6 +142,9 @@ export default function TranslatorPage() {
                   // Update the input state in React
                   setInput(newText);
 
+                  // Turn off markdown preview before translation
+                  setShowPreview(false);
+
                   // Directly trigger the translation with the new, complete text
                   await complete(newText);
                 }}
