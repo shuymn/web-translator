@@ -1,4 +1,5 @@
 import { execSync } from "node:child_process";
+import path from "node:path";
 import { cloudflare } from "@cloudflare/vite-plugin";
 import { reactRouter } from "@react-router/dev/vite";
 import tailwindcss from "@tailwindcss/vite";
@@ -32,6 +33,9 @@ export default defineConfig({
   ssr: {
     target: "webworker",
     resolve: { conditions: ["workerd", "browser"] },
+  },
+  resolve: {
+    alias: { "@": path.resolve(__dirname, "./app") },
   },
   define: {
     __COMMIT_HASH__: JSON.stringify(commitHash),
