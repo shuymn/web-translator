@@ -1,6 +1,7 @@
+import { createOpenAI } from "@ai-sdk/openai";
 import { createDataStreamResponse, formatDataStreamPart, streamText } from "ai";
-import { createAIGateway } from "../../lib/ai-gateway";
-import { generateCacheKey } from "../../lib/cache";
+import { generateCacheKey } from "../../lib/cache/hash";
+import { getCached, setCached } from "../../lib/cache/redis-storage";
 import type { Route } from "./+types/completion";
 
 type CompletionRequest = {
@@ -54,9 +55,8 @@ function errorHandler(error: unknown, context?: { sourceLang?: string; targetLan
   return "An unexpected error occurred during translation";
 }
 
-export async function action({ request, context }: Route.ActionArgs) {
-  const { prompt, sourceLang, targetLang } = await request.json<CompletionRequest>();
-  const env = context.cloudflare.env;
+export async function action({ request }: Route.ActionArgs) {
+  const { prompt, sourceLang, targetLang } = (await request.json()) as CompletionRequest;
 
   // Context for error handling
   const errorContext = {
@@ -67,7 +67,7 @@ export async function action({ request, context }: Route.ActionArgs) {
 
   // Check cache
   const cacheKey = await generateCacheKey(prompt, sourceLang, targetLang);
-  const cached = await env.TRANSLATION_CACHE.get(cacheKey);
+  const cached = await getCached(cacheKey);
 
   if (cached) {
     // Return cached content as a proper data stream response
@@ -80,8 +80,10 @@ export async function action({ request, context }: Route.ActionArgs) {
     });
   }
 
-  // Create AI client
-  const openai = createAIGateway(env);
+  // Create AI client directly with OpenAI
+  const openai = createOpenAI({
+    apiKey: process.env.OPENAI_API_KEY,
+  });
 
   // Stream translation
   const result = streamText({
@@ -98,9 +100,7 @@ export async function action({ request, context }: Route.ActionArgs) {
     temperature: 0.3,
     maxTokens: 4096,
     onFinish: async ({ text }) => {
-      await env.TRANSLATION_CACHE.put(cacheKey, text, {
-        expirationTtl: 604800, // 7 days
-      });
+      await setCached(cacheKey, text, 604800); // 7 days
     },
   });
 
