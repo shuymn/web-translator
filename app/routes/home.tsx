@@ -1,6 +1,6 @@
 import { useCompletion } from "@ai-sdk/react";
 import { ArrowRightLeft, Check, Copy, FileText, Languages, Loader2 } from "lucide-react";
-import { useMemo, useState } from "react";
+import { memo, useMemo, useState } from "react";
 import { MarkdownPreview } from "../components/markdown-preview";
 import { Alert, AlertDescription } from "../components/ui/alert";
 import { Button } from "../components/ui/button";
@@ -23,6 +23,21 @@ const LANGUAGES = {
   Japanese: "ja",
 } as const;
 type Language = (typeof LANGUAGES)[keyof typeof LANGUAGES];
+
+// Memoized output content to prevent re-renders when input changes
+const OutputContent = memo(({ completion, showPreview }: { completion: string; showPreview: boolean }) => {
+  if (!completion) {
+    return <span className="text-text-muted-alt">翻訳結果がここに表示されます</span>;
+  }
+
+  return showPreview ? (
+    <MarkdownPreview content={completion} />
+  ) : (
+    <div className="w-full whitespace-pre-wrap text-base text-foreground">{completion}</div>
+  );
+});
+
+OutputContent.displayName = "OutputContent";
 
 export default function TranslatorPage() {
   const [sourceLang, setSourceLang] = useState<Language>(LANGUAGES.English);
@@ -210,15 +225,7 @@ export default function TranslatorPage() {
               </div>
             </CardHeader>
             <CardContent className="p-4 flex-1 bg-output-bg overflow-y-auto min-h-0">
-              {hasCompletion ? (
-                showPreview ? (
-                  <MarkdownPreview content={completion} />
-                ) : (
-                  <div className="w-full whitespace-pre-wrap text-base text-foreground">{completion}</div>
-                )
-              ) : (
-                <span className="text-text-muted-alt">翻訳結果がここに表示されます</span>
-              )}
+              <OutputContent completion={completion} showPreview={showPreview} />
             </CardContent>
             <CardFooter className="p-3 border-t border-border text-xs text-text-subtle flex justify-between">
               <span>文字数: {completion.length}</span>
