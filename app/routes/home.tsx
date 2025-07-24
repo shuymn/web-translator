@@ -148,7 +148,7 @@ export default function TranslatorPage() {
               }`}
               disabled={isLoading || !hasCompletion}
             >
-              <ArrowRightLeft className="w-5 h-5 text-muted-foreground rotate-90 xl:rotate-0" />
+              <ArrowRightLeft className="w-5 h-5 text-muted-foreground rotate-90" />
             </Button>
           </div>
 
