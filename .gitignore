@@ -17,18 +17,17 @@ yarn-error.log
 .cache
 
 # IDE
-.vscode
 .DS_Store
 .idea
-
-# Next.js (legacy, can be removed if no longer needed)
-.next
 
 # TypeScript
 *.tsbuildinfo
 
-# Cloudflare
-.mf
-.wrangler
-.dev.vars*
-wrangler.jsonc
+# Environment variables
+.env.*
+!.env.example
+
+# Vercel
+/.vercel/
+.vercel
+.env*.local
