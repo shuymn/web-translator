@@ -5,25 +5,44 @@ interface MermaidDiagramProps {
   chart: string;
 }
 
-// Initialize mermaid once, outside the component
-mermaid.initialize({
-  startOnLoad: false,
-  theme: "dark",
-  themeVariables: {
-    primaryColor: "#1e293b",
-    primaryTextColor: "#f1f5f9",
-    primaryBorderColor: "#475569",
-    lineColor: "#475569",
-    secondaryColor: "#334155",
-    tertiaryColor: "#1e293b",
-    background: "#0f172a",
-    mainBkg: "#1e293b",
-    secondBkg: "#334155",
-    tertiaryBkg: "#475569",
-    textColor: "#f1f5f9",
-    nodeTextColor: "#f1f5f9",
-  },
-});
+// Promise to track mermaid initialization state
+let mermaidInitPromise: Promise<void> | null = null;
+
+function initializeMermaid(): Promise<void> {
+  if (typeof window === "undefined") {
+    return Promise.resolve();
+  }
+
+  // Return existing promise if initialization is already in progress or completed
+  if (mermaidInitPromise) {
+    return mermaidInitPromise;
+  }
+
+  // Create a new promise for initialization
+  mermaidInitPromise = new Promise((resolve) => {
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: "dark",
+      themeVariables: {
+        primaryColor: "#1e293b",
+        primaryTextColor: "#f1f5f9",
+        primaryBorderColor: "#475569",
+        lineColor: "#475569",
+        secondaryColor: "#334155",
+        tertiaryColor: "#1e293b",
+        background: "#0f172a",
+        mainBkg: "#1e293b",
+        secondBkg: "#334155",
+        tertiaryBkg: "#475569",
+        textColor: "#f1f5f9",
+        nodeTextColor: "#f1f5f9",
+      },
+    });
+    resolve();
+  });
+
+  return mermaidInitPromise;
+}
 
 function isMermaidError(err: unknown): err is { message: string } {
   return typeof err === "object" && err !== null && "message" in err;
@@ -52,6 +71,9 @@ export const MermaidDiagram = memo(({ chart }: MermaidDiagramProps) => {
 
     const renderDiagram = async () => {
       try {
+        // Initialize mermaid on first render (only in browser)
+        await initializeMermaid();
+
         await mermaid.run({
           nodes: [container],
           suppressErrors: false,
