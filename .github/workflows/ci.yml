@@ -7,6 +7,10 @@ on:
     branches: [main]
     types: [opened, synchronize, reopened]
 
+env:
+  # renovate: datasource=github-releases depName=google/go-jsonnet
+  GO_JSONNET_VERSION: 0.20.0
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
@@ -30,6 +34,11 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
+
+      - name: Setup go-jsonnet
+        uses: ./.github/actions/setup-go-jsonnet
+        with:
+          version: ${{ env.GO_JSONNET_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -55,6 +64,11 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
+      - name: Setup go-jsonnet
+        uses: ./.github/actions/setup-go-jsonnet
+        with:
+          version: ${{ env.GO_JSONNET_VERSION }}
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -77,6 +91,11 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
+      - name: Setup go-jsonnet
+        uses: ./.github/actions/setup-go-jsonnet
+        with:
+          version: ${{ env.GO_JSONNET_VERSION }}
+
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -98,6 +117,11 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
+
+      - name: Setup go-jsonnet
+        uses: ./.github/actions/setup-go-jsonnet
+        with:
+          version: ${{ env.GO_JSONNET_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
