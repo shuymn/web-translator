@@ -4,64 +4,53 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a web-based translation application built with React Router v7 (SSR mode) deployed on Cloudflare Workers. It provides bidirectional English/Japanese translation using OpenAI's gpt-4.1-nano model with streaming responses and KV caching.
+This is a web-based translation application built with React Router v7 (SSR mode) deployed on Vercel. It provides bidirectional English/Japanese translation using OpenAI's gpt-4.1-nano model with streaming responses and Redis caching.
 
 ## Common Development Commands
 
 ```bash
 # Development
-pnpm dev                    # Start dev server (uses Vite + Cloudflare Workers)
+pnpm dev                    # Start dev server (uses Vite)
 pnpm build                  # Build for production (outputs to build/client and build/server)
-pnpm deploy                 # Build and deploy to Cloudflare Workers
+pnpm deploy                 # Deploy to Vercel (production)
+pnpm deploy:preview         # Deploy preview version
 
 # Code Quality
 pnpm lint                   # Run Biome linting with auto-fix
 pnpm format                 # Run Biome formatting
-pnpm typecheck              # Regenerate worker types and run TypeScript check
+pnpm typecheck              # Run TypeScript check
 
 # Testing
 pnpm test                   # Run all tests
 pnpm test:watch             # Run tests in watch mode
 pnpm test <file>            # Run specific test file
 
-# Cloudflare Operations
-pnpm exec wrangler secret put <name>  # Set secrets (OPENAI_API_KEY, CF_ACCOUNT_ID, AI_GATEWAY_ID)
-pnpm exec wrangler kv namespace list  # List KV namespaces
-pnpm exec wrangler tail               # Stream live logs from Workers
+# Vercel Operations
+pnpm env:pull               # Pull environment variables from Vercel
+pnpm env:add                # Add new environment variable
+pnpm exec vercel --prod     # Deploy to production
+pnpm exec vercel            # Deploy preview
 ```
 
 ## Environment Setup
 
-**KV Namespace Configuration**
-This project dynamically manages KV namespace IDs to avoid committing them to the repository:
+**Redis Configuration**
+This project uses Redis for caching translations:
 
-1. **Local Development**: Uses a placeholder KV namespace ID
+1. **Local Development**: Use Docker Compose for local Redis
    ```bash
-   pnpm dev  # Automatically uses placeholder ID
+   docker compose up -d  # Starts Redis on localhost:6379
+   pnpm dev             # Connects to local Redis
    ```
 
-2. **Deployment**: Dynamically fetches the actual KV namespace ID
-   ```bash
-   pnpm deploy  # Looks up KV namespace by name and uses real ID
-   ```
+2. **Production**: Configure Redis URL in Vercel Dashboard
+   - Can use Vercel KV, Upstash, or any Redis-compatible service
+   - Set `REDIS_URL` environment variable
 
-3. **Custom KV Namespace Name** (optional):
-   ```bash
-   # Default name is "web-translator-cache"
-   KV_NAME="my-custom-kv-namespace" pnpm deploy
-   ```
-
-**How it works**:
-- `wrangler.jsonc` is generated from `wrangler.jsonnet` at runtime (requires go-jsonnet)
-- Development commands use `development_placeholder_id` as the KV namespace ID
-- Deploy command queries `wrangler kv namespace list` to find the actual ID
-- The actual `wrangler.jsonc` is gitignored
-
-**Creating a KV Namespace**:
-If the deployment fails because the KV namespace doesn't exist, create it with:
-```bash
-pnpm exec wrangler kv namespace create "cache"  # Creates "web-translator-cache"
-```
+**Environment Variables**:
+- Development: Create `.env.local` file from `.env.example`
+- Production: Configure in Vercel Dashboard
+- Pull from Vercel: `pnpm env:pull`
 
 ## Architecture Overview
 
@@ -69,28 +58,30 @@ pnpm exec wrangler kv namespace create "cache"  # Creates "web-translator-cache"
 1. **Client Request** → React Router SSR renders the page
 2. **Translation Request** → Client calls `/api/completion` endpoint
 3. **Cache Check** → SHA-256 hash of normalized text used as cache key
-4. **AI Gateway** → Routes OpenAI requests through Cloudflare AI Gateway for observability
+4. **Direct API Call** → Calls OpenAI API directly from Vercel Functions
 5. **Streaming Response** → Uses Vercel AI SDK's streaming capabilities
-6. **Cache Storage** → Successful translations stored in KV for 7 days
+6. **Cache Storage** → Successful translations stored in Redis for 7 days
 
 ### Key Integration Points
 
-**Cloudflare Environment Access**
-- Available in route actions/loaders via `context.cloudflare.env`
-- Contains KV namespace bindings and secrets
-- Type definitions auto-generated in `worker-configuration.d.ts`
+**Environment Access**
+- Environment variables available via `process.env`
+- Managed through Vercel Dashboard
+- Local development uses `.env.local`
 
 **AI Translation Pipeline**
 ```typescript
-// 1. Create AI client with gateway
-const openai = createAIGateway(env); // Uses Cloudflare AI Gateway URL
+// 1. Create AI client
+const openai = createOpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 // 2. Stream translation
 streamText({
-  model: openai.responses("gpt-4.1-nano"),
+  model: openai("gpt-4o-mini"),
   onFinish: async ({ text }) => {
-    // 3. Cache result in KV
-    await env.TRANSLATION_CACHE.put(cacheKey, text);
+    // 3. Cache result in Redis
+    await setCached(cacheKey, text, 604800); // 7 days
   }
 });
 ```
@@ -98,32 +89,31 @@ streamText({
 ### Project Structure Specifics
 
 **React Router v7 Build Output**
-- `build/client/` - Static assets served by Workers
-- `build/server/` - SSR bundle loaded by worker entry point
-- Assets configured in `wrangler.jsonc` to point to `build/client`
+- `build/client/` - Static assets served by Vercel
+- `build/server/` - SSR bundle for Vercel Functions
+- Vercel preset handles the integration automatically
 
-**Worker Entry Point**
-- `workers/app.ts` - Minimal wrapper that loads React Router's server build
-- Injects Cloudflare environment into React Router's context
+**Redis Cache Module**
+- `app/lib/cache/redis-storage.ts` - Redis client with connection reuse
+- `app/lib/cache/hash.ts` - Cache key generation
+- Global Redis client pattern for Vercel Fluid Compute optimization
 
 **Type Generation**
-- `pnpm typecheck` runs three steps:
-  1. `wrangler types` - Generates `worker-configuration.d.ts` from `wrangler.jsonc`
-  2. `react-router typegen` - Generates route types
-  3. `tsc -b` - TypeScript validation
+- `pnpm typecheck` runs two steps:
+  1. `react-router typegen` - Generates route types
+  2. `tsc -b` - TypeScript validation
 
 ### Development Gotchas
 
 **Environment Variables**
-- Development: Create `.dev.vars` file (ignored by git)
-- Production: Use `pnpm exec wrangler secret put` for sensitive values
-- Build-time vars in `wrangler.jsonnet` are placeholders (the generated `wrangler.jsonc` is gitignored)
+- Development: Create `.env.local` file from `.env.example`
+- Production: Configure in Vercel Dashboard
+- Never commit `.env.local` or any `.env.*` files
 
-**KV Namespace Setup**
-1. Create namespace: `pnpm exec wrangler kv namespace create "cache"`
-   - This creates a namespace with the project name prefix (e.g., "web-translator-cache")
-2. The deployment process automatically fetches the KV namespace ID - no manual configuration needed
-3. For local dev, the config generation uses placeholder IDs automatically
+**Redis Connection**
+- Uses global client pattern for connection reuse
+- Vercel Fluid Compute keeps connections warm between invocations
+- Local development requires Docker or external Redis
 
 **Streaming Responses**
 - Cached responses must be wrapped in data stream format
@@ -135,11 +125,27 @@ streamText({
 - Commit-msg: Validates conventional commit format (50 char limit)
 - Errors are intentional - fix issues before committing
 
+**Vercel Region**
+- Fixed to Tokyo (hnd1) to avoid OpenAI API blocks
+- Ensures consistent latency and performance
+
 ## Testing Approach
 
 Tests use Vitest with jsdom environment. Focus areas:
 - Cache key generation consistency
+- Redis storage operations
 - Translation request handling
 - Component rendering behavior
 
-Run specific test: `pnpm test app/lib/cache.test.ts`
+**Local Testing**:
+```bash
+# Start Redis
+docker compose up -d
+
+# Run tests
+pnpm test app/lib/cache/hash.test.ts
+```
+
+**CI Testing**:
+- GitHub Actions runs tests with Redis service container
+- No additional setup needed
