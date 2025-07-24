@@ -31,6 +31,10 @@ export default function TranslatorPage() {
   const [copied, setCopied] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
 
+  // Common button styles for output actions
+  const outputButtonClassName =
+    "bg-primary hover:bg-primary/90 text-primary-foreground transition-opacity duration-200";
+
   const { completion, input, setInput, handleSubmit, isLoading, error, complete } = useCompletion({
     api: "/api/completion",
     body: {
@@ -43,6 +47,7 @@ export default function TranslatorPage() {
     setIsSwapping(true);
     setSourceLang(targetLang); // targetLang switches automatically
     setInput(completion);
+    // 300ms delay to allow the swap animation to complete smoothly
     setTimeout(() => setIsSwapping(false), 300);
   };
 
@@ -54,23 +59,23 @@ export default function TranslatorPage() {
   const hasCompletion = useMemo(() => !!completion && completion.length > 0, [completion]);
 
   return (
-    <div className="flex flex-col h-screen bg-slate-900 font-sans">
+    <div className="flex flex-col h-screen bg-background font-sans">
       <form onSubmit={handleTranslate} className="flex-1 flex flex-col min-h-0">
         <main className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 relative min-h-0">
           {/* Input Card */}
-          <Card className="w-full flex flex-col border-blue-800 min-h-0">
-            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
+          <Card className="w-full flex flex-col border-input-card-border min-h-0">
+            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-border">
               <div className="flex items-center gap-2 mb-0">
-                <span className="text-sm font-semibold text-slate-300">原文:</span>
+                <span className="text-sm font-semibold text-muted-foreground">原文:</span>
                 <Select value={sourceLang} onValueChange={(value) => setSourceLang(value as Language)}>
-                  <SelectTrigger className="w-[100px] text-sm font-semibold border border-slate-700 focus:ring-0 mb-0 bg-slate-800 hover:bg-slate-700">
+                  <SelectTrigger className="w-[100px] text-sm font-semibold border border-border focus:ring-0 mb-0 bg-secondary hover:bg-accent">
                     <SelectValue />
                   </SelectTrigger>
-                  <SelectContent className="min-w-[100px] bg-slate-800 border border-slate-700">
-                    <SelectItem value="en" className="cursor-pointer hover:bg-slate-700">
+                  <SelectContent className="min-w-[100px] bg-secondary border border-border">
+                    <SelectItem value="en" className="cursor-pointer hover:bg-accent">
                       英語
                     </SelectItem>
-                    <SelectItem value="ja" className="cursor-pointer hover:bg-slate-700">
+                    <SelectItem value="ja" className="cursor-pointer hover:bg-accent">
                       日本語
                     </SelectItem>
                   </SelectContent>
@@ -79,7 +84,7 @@ export default function TranslatorPage() {
               <div className="flex items-center gap-2">
                 <Button
                   type="submit"
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white"
+                  className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   disabled={isLoading || !input.trim()}
                 >
                   {isLoading ? (
@@ -94,7 +99,7 @@ export default function TranslatorPage() {
             <CardContent className="p-0 flex-1 min-h-0">
               <Textarea
                 placeholder="翻訳したいテキストを入力してください"
-                className="w-full h-full resize-none border-0 focus-visible:ring-2 focus-visible:ring-blue-400 focus-visible:ring-offset-0 p-4 text-base"
+                className="w-full h-full resize-none border-0 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 p-4 text-base placeholder:text-text-muted-alt"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onPaste={async (e) => {
@@ -127,7 +132,7 @@ export default function TranslatorPage() {
                 }}
               />
             </CardContent>
-            <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500">
+            <CardFooter className="p-3 border-t border-border text-xs text-text-subtle">
               文字数: {input.length}
             </CardFooter>
           </Card>
@@ -138,21 +143,21 @@ export default function TranslatorPage() {
               type="button"
               size="icon"
               onClick={handleSwapLanguages}
-              className={`bg-slate-800 rounded-full border-2 border-slate-600 hover:bg-slate-700 transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-slate-800 ${
+              className={`bg-secondary rounded-full border-2 border-input hover:bg-accent transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-secondary ${
                 isSwapping ? "scale-95 shadow-sm" : "scale-100"
               }`}
               disabled={isLoading || !hasCompletion}
             >
-              <ArrowRightLeft className="w-5 h-5 text-slate-300" />
+              <ArrowRightLeft className="w-5 h-5 text-muted-foreground" />
             </Button>
           </div>
 
           {/* Output Card */}
-          <Card className="w-full flex flex-col border-purple-800 min-h-0">
-            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-slate-700">
+          <Card className="w-full flex flex-col border-output-card-border min-h-0">
+            <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-border">
               <div className="flex items-center gap-2 mb-0">
-                <span className="text-sm font-semibold text-slate-300">訳文:</span>
-                <div className="w-auto h-10 flex items-center px-3 text-sm font-semibold bg-slate-800 rounded-md border border-slate-700">
+                <span className="text-sm font-semibold text-muted-foreground">訳文:</span>
+                <div className="w-auto h-10 flex items-center px-3 text-sm font-semibold bg-secondary rounded-md border border-border">
                   {targetLang === LANGUAGES.Japanese ? "日本語" : "英語"}
                 </div>
               </div>
@@ -171,7 +176,7 @@ export default function TranslatorPage() {
                     }
                   }}
                   disabled={!hasCompletion}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white transition-opacity duration-200"
+                  className={outputButtonClassName}
                 >
                   {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
                   {copied ? "コピーしました" : "コピーする"}
@@ -182,31 +187,31 @@ export default function TranslatorPage() {
                   size="sm"
                   onClick={() => setShowPreview(!showPreview)}
                   disabled={!hasCompletion}
-                  className="bg-indigo-600 hover:bg-indigo-700 text-white transition-opacity duration-200"
+                  className={outputButtonClassName}
                 >
                   <FileText className="w-4 h-4 mr-2" />
                   {showPreview ? "プレビューを隠す" : "Markdownプレビュー"}
                 </Button>
               </div>
             </CardHeader>
-            <CardContent className="p-4 flex-1 bg-purple-900/10 overflow-y-auto min-h-0">
+            <CardContent className="p-4 flex-1 bg-output-bg overflow-y-auto min-h-0">
               {hasCompletion ? (
                 showPreview ? (
                   <MarkdownPreview content={completion} />
                 ) : (
-                  <div className="w-full whitespace-pre-wrap text-base text-slate-100">{completion}</div>
+                  <div className="w-full whitespace-pre-wrap text-base text-foreground">{completion}</div>
                 )
               ) : (
-                <span className="text-slate-400">翻訳結果がここに表示されます</span>
+                <span className="text-text-muted-alt">翻訳結果がここに表示されます</span>
               )}
             </CardContent>
-            <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500 flex justify-between">
+            <CardFooter className="p-3 border-t border-border text-xs text-text-subtle flex justify-between">
               <span>文字数: {completion.length}</span>
               <a
                 href={`https://github.com/${__GITHUB_REPO__}/commit/${__COMMIT_HASH__}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="font-mono hover:text-slate-300 transition-colors"
+                className="font-mono hover:text-foreground transition-colors"
               >
                 {__COMMIT_HASH__}
               </a>
