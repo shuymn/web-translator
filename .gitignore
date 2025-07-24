@@ -31,3 +31,4 @@ yarn-error.log
 .mf
 .wrangler
 .dev.vars*
+wrangler.jsonc
