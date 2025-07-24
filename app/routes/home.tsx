@@ -202,7 +202,14 @@ export default function TranslatorPage() {
             </CardContent>
             <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500 flex justify-between">
               <span>文字数: {completion.length}</span>
-              <span className="font-mono">{__COMMIT_HASH__}</span>
+              <a
+                href={`https://github.com/${__GITHUB_REPO__}/commit/${__COMMIT_HASH__}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono hover:text-slate-300 transition-colors"
+              >
+                {__COMMIT_HASH__}
+              </a>
             </CardFooter>
           </Card>
         </main>

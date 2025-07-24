@@ -13,6 +13,20 @@ const commitHash = (() => {
   }
 })();
 
+// Get GitHub repository URL at build time
+const githubRepo = (() => {
+  try {
+    const remoteUrl = execSync("git remote get-url origin").toString().trim();
+    // Convert SSH URL to HTTPS URL if needed
+    const httpsUrl = remoteUrl.replace(/^git@github\.com:/, "https://github.com/").replace(/\.git$/, "");
+    // Extract owner/repo from URL
+    const match = httpsUrl.match(/github\.com\/([^/]+\/[^/]+)/);
+    return match ? match[1] : "shuymn/web-translator";
+  } catch {
+    return "shuymn/web-translator";
+  }
+})();
+
 export default defineConfig({
   plugins: [cloudflare({ viteEnvironment: { name: "ssr" } }), tailwindcss(), reactRouter()],
   ssr: {
@@ -21,5 +35,6 @@ export default defineConfig({
   },
   define: {
     __COMMIT_HASH__: JSON.stringify(commitHash),
+    __GITHUB_REPO__: JSON.stringify(githubRepo),
   },
 });
