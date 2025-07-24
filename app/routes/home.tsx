@@ -45,6 +45,7 @@ export default function TranslatorPage() {
   const [showPreview, setShowPreview] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isSwapping, setIsSwapping] = useState(false);
+  const [lastTranslatedText, setLastTranslatedText] = useState("");
 
   // Common button styles for output actions
   const outputButtonClassName =
@@ -62,11 +63,23 @@ export default function TranslatorPage() {
     setIsSwapping(true);
     setSourceLang(targetLang); // targetLang switches automatically
     setInput(completion);
+    setLastTranslatedText(""); // Reset last translated text on swap
     // 300ms delay to allow the swap animation to complete smoothly
     setTimeout(() => setIsSwapping(false), 300);
   };
 
   const handleTranslate = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    const currentText = input.trim();
+
+    // If same text as last translation, do nothing
+    if (currentText === lastTranslatedText) {
+      return;
+    }
+
+    // Update last translated text and proceed
+    setLastTranslatedText(currentText);
     setShowPreview(false);
     handleSubmit(e);
   };
@@ -141,6 +154,16 @@ export default function TranslatorPage() {
 
                   // Update the input state in React
                   setInput(newText);
+
+                  const currentText = newText.trim();
+
+                  // If same text as last translation, do nothing
+                  if (currentText === lastTranslatedText) {
+                    return;
+                  }
+
+                  // Update last translated text and proceed
+                  setLastTranslatedText(currentText);
 
                   // Turn off markdown preview before translation
                   setShowPreview(false);
