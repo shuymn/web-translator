@@ -3,13 +3,13 @@
 ## Prerequisites
 - Cloudflare account with Workers enabled
 - OpenAI API key with access to gpt-4.1-nano model
-- Wrangler CLI installed (`pnpm install -g wrangler`)
+- Node.js and pnpm installed
 
 ## Phase 7: Deployment Preparation
 
 ### 1. Create KV Namespace
 ```bash
-wrangler kv namespace create TRANSLATION_CACHE
+pnpm exec wrangler kv namespace create web-translator-cache
 ```
 
 After running this command, you'll receive output like:
@@ -22,30 +22,20 @@ binding = "TRANSLATION_CACHE"
 id = "abcd1234567890"
 ```
 
-**Important**: Update the `wrangler.jsonc` file with the actual KV namespace ID:
-```jsonc
-{
-  "kv_namespaces": [
-    {
-      "binding": "TRANSLATION_CACHE",
-      "id": "YOUR_ACTUAL_KV_ID_HERE"  // Replace with the ID from above
-    }
-  ]
-}
-```
+**Note**: The deployment process will automatically fetch the KV namespace ID by name. No manual configuration needed!
 
 ### 2. Set Worker Secrets
 ```bash
 # Set your OpenAI API key
-wrangler secret put OPENAI_API_KEY
+pnpm exec wrangler secret put OPENAI_API_KEY
 # Enter your OpenAI API key when prompted
 
 # Set your Cloudflare Account ID
-wrangler secret put CF_ACCOUNT_ID
+pnpm exec wrangler secret put CF_ACCOUNT_ID
 # Enter your Cloudflare account ID (found in dashboard)
 
 # Set your AI Gateway ID
-wrangler secret put AI_GATEWAY_ID
+pnpm exec wrangler secret put AI_GATEWAY_ID
 # Enter your AI Gateway ID (created in next step)
 ```
 
@@ -97,7 +87,8 @@ pnpm deploy
 ## Troubleshooting
 
 ### KV Namespace Issues
-- Ensure the KV namespace ID in `wrangler.jsonc` matches the created namespace
+- Ensure the KV namespace exists with name `web-translator-cache` (or your custom name)
+- Use `pnpm exec wrangler kv namespace list` to verify
 - Check that the binding name is exactly `TRANSLATION_CACHE`
 
 ### AI Gateway Issues
@@ -105,7 +96,7 @@ pnpm deploy
 - Check AI Gateway logs in Cloudflare Dashboard for request errors
 
 ### Translation Not Working
-1. Check worker logs: `wrangler tail`
+1. Check worker logs: `pnpm exec wrangler tail`
 2. Verify all secrets are set correctly
 3. Ensure OpenAI API key has access to gpt-4.1-nano model
 4. Check AI Gateway logs for API errors

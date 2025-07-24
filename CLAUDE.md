@@ -25,9 +25,42 @@ pnpm test:watch             # Run tests in watch mode
 pnpm test <file>            # Run specific test file
 
 # Cloudflare Operations
-wrangler secret put <name>  # Set secrets (OPENAI_API_KEY, CF_ACCOUNT_ID, AI_GATEWAY_ID)
-wrangler kv namespace list  # List KV namespaces
-wrangler tail               # Stream live logs from Workers
+pnpm exec wrangler secret put <name>  # Set secrets (OPENAI_API_KEY, CF_ACCOUNT_ID, AI_GATEWAY_ID)
+pnpm exec wrangler kv namespace list  # List KV namespaces
+pnpm exec wrangler tail               # Stream live logs from Workers
+```
+
+## Environment Setup
+
+**KV Namespace Configuration**
+This project dynamically manages KV namespace IDs to avoid committing them to the repository:
+
+1. **Local Development**: Uses a placeholder KV namespace ID
+   ```bash
+   pnpm dev  # Automatically uses placeholder ID
+   ```
+
+2. **Deployment**: Dynamically fetches the actual KV namespace ID
+   ```bash
+   pnpm deploy  # Looks up KV namespace by name and uses real ID
+   ```
+
+3. **Custom KV Namespace Name** (optional):
+   ```bash
+   # Default name is "web-translator-cache"
+   KV_NAME="my-custom-kv-namespace" pnpm deploy
+   ```
+
+**How it works**:
+- `wrangler.jsonc` is generated from `wrangler.jsonnet` at runtime (requires jsonnet)
+- Development commands use `development_placeholder_id` as the KV namespace ID
+- Deploy command queries `wrangler kv namespace list` to find the actual ID
+- The actual `wrangler.jsonc` is gitignored
+
+**Creating a KV Namespace**:
+If the deployment fails because the KV namespace doesn't exist, create it with:
+```bash
+pnpm exec wrangler kv namespace create "cache"  # Creates "web-translator-cache"
 ```
 
 ## Architecture Overview
@@ -83,11 +116,11 @@ streamText({
 
 **Environment Variables**
 - Development: Create `.dev.vars` file (ignored by git)
-- Production: Use `wrangler secret put` for sensitive values
+- Production: Use `pnpm exec wrangler secret put` for sensitive values
 - Build-time vars in `wrangler.jsonc` are placeholders
 
 **KV Namespace Setup**
-1. Create namespace: `wrangler kv namespace create TRANSLATION_CACHE`
+1. Create namespace: `pnpm exec wrangler kv namespace create TRANSLATION_CACHE`
 2. Update the ID in `wrangler.jsonc` with returned value
 3. For local dev, add `--local` flag to create preview namespace
 
