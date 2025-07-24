@@ -8,8 +8,7 @@ on:
     types: [opened, synchronize, reopened]
 
 env:
-  # renovate: datasource=github-releases depName=google/go-jsonnet
-  GO_JSONNET_VERSION: 0.20.0
+  REDIS_URL: redis://localhost:6379
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -35,11 +34,6 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
-      - name: Setup go-jsonnet
-        uses: ./.github/actions/setup-go-jsonnet
-        with:
-          version: ${{ env.GO_JSONNET_VERSION }}
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -64,21 +58,8 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
-      - name: Setup go-jsonnet
-        uses: ./.github/actions/setup-go-jsonnet
-        with:
-          version: ${{ env.GO_JSONNET_VERSION }}
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: Create sample .dev.vars
-        run: |
-          cat > .dev.vars << EOF
-          OPENAI_API_KEY=dummy-key-for-typecheck
-          CF_ACCOUNT_ID=dummy-account-id
-          AI_GATEWAY_ID=dummy-gateway-id
-          EOF
 
       - name: Run type checking
         run: pnpm typecheck
@@ -86,6 +67,16 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:7-alpine
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
     steps:
       - name: Checkout code
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
@@ -98,11 +89,6 @@ jobs:
         with:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
-
-      - name: Setup go-jsonnet
-        uses: ./.github/actions/setup-go-jsonnet
-        with:
-          version: ${{ env.GO_JSONNET_VERSION }}
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
@@ -126,11 +112,6 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'pnpm'
 
-      - name: Setup go-jsonnet
-        uses: ./.github/actions/setup-go-jsonnet
-        with:
-          version: ${{ env.GO_JSONNET_VERSION }}
-
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -138,9 +119,7 @@ jobs:
         run: pnpm build
         env:
           # Add dummy values for required secrets during build
-          OPENAI_API_KEY: dummy-key-for-build
-          CF_ACCOUNT_ID: dummy-account-id
-          AI_GATEWAY_ID: dummy-gateway-id
+          OPENAI_API_KEY: 'dummy-key-for-build'
 
       - name: Check build output
         run: |
