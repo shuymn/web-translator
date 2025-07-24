@@ -61,9 +61,9 @@ export default function TranslatorPage() {
   return (
     <div className="flex flex-col h-screen bg-background font-sans">
       <form onSubmit={handleTranslate} className="flex-1 flex flex-col min-h-0">
-        <main className="flex-1 flex flex-col md:flex-row gap-4 p-4 md:p-6 relative min-h-0">
+        <main className="flex-1 flex flex-col xl:flex-row portrait:flex-col gap-3 xl:gap-4 p-4 xl:p-6 relative min-h-0 overflow-hidden">
           {/* Input Card */}
-          <Card className="w-full flex flex-col border-input-card-border min-h-0">
+          <Card className="w-full flex flex-col border-input-card-border min-h-0 flex-1 xl:flex-initial">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-border">
               <div className="flex items-center gap-2 mb-0">
                 <span className="text-sm font-semibold text-muted-foreground">原文:</span>
@@ -137,8 +137,23 @@ export default function TranslatorPage() {
             </CardFooter>
           </Card>
 
-          {/* Swap Button */}
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          {/* Swap Button - Vertical Layout (default and portrait) */}
+          <div className="xl:hidden portrait:flex flex justify-center py-3 -my-1.5 z-10">
+            <Button
+              type="button"
+              size="icon"
+              onClick={handleSwapLanguages}
+              className={`bg-secondary rounded-full border-2 border-input hover:bg-accent transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-secondary ${
+                isSwapping ? "scale-95 shadow-sm" : "scale-100"
+              }`}
+              disabled={isLoading || !hasCompletion}
+            >
+              <ArrowRightLeft className="w-5 h-5 text-muted-foreground rotate-90 xl:rotate-0" />
+            </Button>
+          </div>
+
+          {/* Swap Button - Horizontal Layout (xl and above, non-portrait) */}
+          <div className="hidden xl:block portrait:hidden absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <Button
               type="button"
               size="icon"
@@ -153,7 +168,7 @@ export default function TranslatorPage() {
           </div>
 
           {/* Output Card */}
-          <Card className="w-full flex flex-col border-output-card-border min-h-0">
+          <Card className="w-full flex flex-col border-output-card-border min-h-0 flex-1 xl:flex-initial">
             <CardHeader className="flex flex-row items-center justify-between p-3 border-b border-border">
               <div className="flex items-center gap-2 mb-0">
                 <span className="text-sm font-semibold text-muted-foreground">訳文:</span>

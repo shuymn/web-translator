@@ -97,3 +97,27 @@
 .prose :where(p):not(:where([class~="not-prose"] *)) {
   color: inherit;
 }
+
+/* Enhanced vertical layout for portrait displays */
+@media (max-aspect-ratio: 3/4) and (min-width: 768px) {
+  /* Force vertical layout for portrait monitors regardless of width */
+  .portrait\:flex-col {
+    flex-direction: column !important;
+  }
+  
+  .portrait\:hidden {
+    display: none !important;
+  }
+  
+  .portrait\:flex {
+    display: flex !important;
+  }
+}
+
+/* Optimize layout for vertical monitors (16:9 rotated) */
+@media (orientation: portrait) and (min-width: 900px) {
+  /* Ensure cards take equal space in vertical layout */
+  main > .flex-1 {
+    min-height: 0;
+  }
+}
