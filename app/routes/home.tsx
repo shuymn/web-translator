@@ -58,6 +58,8 @@ export default function TranslatorPage() {
 
   const hasCompletion = useMemo(() => !!completion && completion.length > 0, [completion]);
 
+  const commitHash = process.env.VERCEL_GIT_COMMIT_SHA?.slice(0, 7);
+
   return (
     <div className="flex flex-col h-screen bg-background font-sans">
       <form onSubmit={handleTranslate} className="flex-1 flex flex-col min-h-0">
@@ -222,14 +224,18 @@ export default function TranslatorPage() {
             </CardContent>
             <CardFooter className="p-3 border-t border-border text-xs text-text-subtle flex justify-between">
               <span>文字数: {completion.length}</span>
-              <a
-                href={`https://github.com/${__GITHUB_REPO__}/commit/${__COMMIT_HASH__}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="font-mono hover:text-foreground transition-colors"
-              >
-                {__COMMIT_HASH__}
-              </a>
+              {commitHash ? (
+                <a
+                  href={`https://github.com/${process.env.VERCEL_GIT_REPO_OWNER}/${process.env.VERCEL_GIT_REPO_SLUG}/commit/${commitHash}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-mono hover:text-foreground transition-colors"
+                >
+                  {commitHash}
+                </a>
+              ) : (
+                <span className="text-text-muted-alt">unknown</span>
+              )}
             </CardFooter>
           </Card>
         </main>
