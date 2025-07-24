@@ -72,6 +72,14 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
+      - name: Create sample .dev.vars
+        run: |
+          cat > .dev.vars << EOF
+          OPENAI_API_KEY=dummy-key-for-typecheck
+          CF_ACCOUNT_ID=dummy-account-id
+          AI_GATEWAY_ID=dummy-gateway-id
+          EOF
+
       - name: Run type checking
         run: pnpm typecheck
 
