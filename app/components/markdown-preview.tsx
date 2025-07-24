@@ -11,9 +11,12 @@ import yaml from "@shikijs/langs/yaml";
 import rehypeShikiFromHighlighter from "@shikijs/rehype/core";
 import githubDark from "@shikijs/themes/github-dark";
 import ReactMarkdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
 import remarkGfm from "remark-gfm";
 import { createHighlighterCoreSync } from "shiki/core";
 import { createJavaScriptRegexEngine } from "shiki/engine/javascript";
+import { MermaidDiagram } from "./mermaid-diagram";
+import { remarkMermaid } from "./remark-mermaid";
 
 const highlighter = createHighlighterCoreSync({
   themes: [githubDark],
@@ -25,8 +28,18 @@ export function MarkdownPreview({ content }: { content: string }) {
   return (
     <div className="prose prose-invert max-w-none text-slate-100">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[[rehypeShikiFromHighlighter, highlighter, { theme: "github-dark" }]]}
+        remarkPlugins={[remarkGfm, remarkMermaid]}
+        rehypePlugins={[rehypeRaw, [rehypeShikiFromHighlighter, highlighter, { theme: "github-dark" }]]}
+        components={{
+          div: ({ children, ...props }) => {
+            if ("data-mermaid" in props && typeof props["data-mermaid"] === "string") {
+              const diagram = decodeURIComponent(props["data-mermaid"]);
+              return <MermaidDiagram chart={diagram} />;
+            }
+
+            return <div {...props}>{children}</div>;
+          },
+        }}
       >
         {content}
       </ReactMarkdown>
