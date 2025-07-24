@@ -4,25 +4,23 @@
 - Cloudflare account with Workers enabled
 - OpenAI API key with access to gpt-4.1-nano model
 - Node.js and pnpm installed
+- jsonnet CLI tool (`brew install go-jsonnet` on macOS)
 
 ## Phase 7: Deployment Preparation
 
 ### 1. Create KV Namespace
 ```bash
-pnpm exec wrangler kv namespace create web-translator-cache
+pnpm exec wrangler kv namespace create cache
 ```
 
 After running this command, you'll receive output like:
 ```
  ⛅️ wrangler 4.x.x
 ------------------------------------------------
-Add the following to your configuration file in your kv_namespaces array:
-[[kv_namespaces]]
-binding = "TRANSLATION_CACHE"
-id = "abcd1234567890"
+Successfully created KV namespace with title 'web-translator-cache' and id 'abcd1234567890'
 ```
 
-**Note**: The deployment process will automatically fetch the KV namespace ID by name. No manual configuration needed!
+**Note**: The deployment process will automatically fetch the KV namespace ID by name. No manual configuration needed! The `wrangler.jsonc` file is auto-generated from `wrangler.jsonnet` during build and deployment.
 
 ### 2. Set Worker Secrets
 ```bash

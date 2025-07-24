@@ -52,7 +52,7 @@ This project dynamically manages KV namespace IDs to avoid committing them to th
    ```
 
 **How it works**:
-- `wrangler.jsonc` is generated from `wrangler.jsonnet` at runtime (requires jsonnet)
+- `wrangler.jsonc` is generated from `wrangler.jsonnet` at runtime (requires go-jsonnet)
 - Development commands use `development_placeholder_id` as the KV namespace ID
 - Deploy command queries `wrangler kv namespace list` to find the actual ID
 - The actual `wrangler.jsonc` is gitignored
@@ -117,12 +117,13 @@ streamText({
 **Environment Variables**
 - Development: Create `.dev.vars` file (ignored by git)
 - Production: Use `pnpm exec wrangler secret put` for sensitive values
-- Build-time vars in `wrangler.jsonc` are placeholders
+- Build-time vars in `wrangler.jsonnet` are placeholders (the generated `wrangler.jsonc` is gitignored)
 
 **KV Namespace Setup**
-1. Create namespace: `pnpm exec wrangler kv namespace create TRANSLATION_CACHE`
-2. Update the ID in `wrangler.jsonc` with returned value
-3. For local dev, add `--local` flag to create preview namespace
+1. Create namespace: `pnpm exec wrangler kv namespace create "cache"`
+   - This creates a namespace with the project name prefix (e.g., "web-translator-cache")
+2. The deployment process automatically fetches the KV namespace ID - no manual configuration needed
+3. For local dev, the config generation uses placeholder IDs automatically
 
 **Streaming Responses**
 - Cached responses must be wrapped in data stream format

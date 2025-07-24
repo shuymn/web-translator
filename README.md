@@ -26,6 +26,7 @@ A modern web-based translation application built with React Router v7 and deploy
 
 - Node.js 18+
 - pnpm (`npm install -g pnpm`)
+- jsonnet (`brew install go-jsonnet` on macOS, or see [installation guide](https://github.com/google/go-jsonnet/releases))
 - Cloudflare account with Workers enabled
 - OpenAI API key
 - Wrangler CLI (`pnpm install -g wrangler`)
@@ -37,13 +38,14 @@ A modern web-based translation application built with React Router v7 and deploy
 pnpm install
 
 # Create KV namespace
-wrangler kv namespace create TRANSLATION_CACHE
-# Update the ID in wrangler.jsonc with the returned value
+pnpm exec wrangler kv namespace create "cache"
+# This creates a namespace with the prefix "web-translator"
+# The deployment process will automatically fetch the KV namespace ID
 
 # Set secrets
-wrangler secret put OPENAI_API_KEY
-wrangler secret put CF_ACCOUNT_ID
-wrangler secret put AI_GATEWAY_ID
+pnpm exec wrangler secret put OPENAI_API_KEY
+pnpm exec wrangler secret put CF_ACCOUNT_ID
+pnpm exec wrangler secret put AI_GATEWAY_ID
 ```
 
 ## Development
@@ -72,13 +74,23 @@ pnpm build
 pnpm deploy
 
 # Deploy preview version
-npx wrangler versions upload
+pnpm exec wrangler versions upload
 
 # Promote version to production
-npx wrangler versions deploy
+pnpm exec wrangler versions deploy
 ```
 
 ## Configuration
+
+### Wrangler Configuration (Auto-generated)
+
+The project uses a dynamic configuration system:
+- `wrangler.jsonnet` is the source configuration template
+- `wrangler.jsonc` is auto-generated from the template (gitignored)
+- Local development uses placeholder KV namespace IDs
+- Deployment automatically fetches real KV namespace IDs by name
+
+**Note**: Never edit `wrangler.jsonc` directly. All configuration changes should be made in `wrangler.jsonnet`.
 
 ### Cloudflare AI Gateway
 
@@ -107,7 +119,8 @@ npx wrangler versions deploy
 ├── public/                # Static assets
 ├── specs/                 # Project specifications
 ├── biome.json            # Biome configuration
-├── wrangler.jsonc        # Cloudflare Workers config
+├── wrangler.jsonnet      # Wrangler config template (source)
+├── wrangler.jsonc        # Auto-generated config (gitignored)
 └── vite.config.ts        # Vite configuration
 ```
 
