@@ -44,5 +44,14 @@
     }
   ],
   "prConcurrentLimit": 3,
-  "minimumReleaseAge": "3 days"
+  "minimumReleaseAge": "3 days",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["^\\.github/workflows/[^/]+\\.ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+) depName=(?<depName>[^\\s]+)\\s*\\n\\s*[A-Z_]+: (?<currentValue>[^\\s]+)"
+      ]
+    }
+  ]
 }
