@@ -200,8 +200,9 @@ export default function TranslatorPage() {
                 <span className="text-slate-400">翻訳結果がここに表示されます</span>
               )}
             </CardContent>
-            <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500">
-              文字数: {completion.length}
+            <CardFooter className="p-3 border-t border-slate-700 text-xs text-slate-500 flex justify-between">
+              <span>文字数: {completion.length}</span>
+              <span className="font-mono">{__COMMIT_HASH__}</span>
             </CardFooter>
           </Card>
         </main>
