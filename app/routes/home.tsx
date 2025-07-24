@@ -138,18 +138,22 @@ export default function TranslatorPage() {
           </Card>
 
           {/* Swap Button - Vertical Layout (default and portrait) */}
-          <div className="xl:hidden portrait:flex flex justify-center py-3 -my-1.5 z-10">
-            <Button
-              type="button"
-              size="icon"
-              onClick={handleSwapLanguages}
-              className={`bg-secondary rounded-full border-2 border-input hover:bg-accent transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-secondary ${
-                isSwapping ? "scale-95 shadow-sm" : "scale-100"
-              }`}
-              disabled={isLoading || !hasCompletion}
-            >
-              <ArrowRightLeft className="w-5 h-5 text-muted-foreground rotate-90 xl:rotate-0" />
-            </Button>
+          <div className="xl:hidden portrait:flex relative flex items-center justify-center h-0 z-10">
+            <div className="absolute inset-x-4 flex items-center">
+              <div className="flex-1 border-t border-border"></div>
+              <Button
+                type="button"
+                size="icon"
+                onClick={handleSwapLanguages}
+                className={`mx-3 bg-secondary rounded-full border-2 border-input hover:bg-accent transition-all duration-150 shadow-md hover:shadow-lg disabled:opacity-50 disabled:hover:bg-secondary ${
+                  isSwapping ? "scale-95 shadow-sm" : "scale-100"
+                }`}
+                disabled={isLoading || !hasCompletion}
+              >
+                <ArrowRightLeft className="w-5 h-5 text-muted-foreground rotate-90 xl:rotate-0" />
+              </Button>
+              <div className="flex-1 border-t border-border"></div>
+            </div>
           </div>
 
           {/* Swap Button - Horizontal Layout (xl and above, non-portrait) */}
