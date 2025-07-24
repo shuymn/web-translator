@@ -22,22 +22,17 @@ local kv_namespace_id = std.extVar('KV_NAMESPACE_ID');
   // Smart Placement
   // Docs: https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement
   // "placement": { "mode": "smart" },
-  
+
   // Bindings
   // Bindings allow your Worker to interact with resources on the Cloudflare Developer Platform, including
   // databases, object storage, AI inference, real-time communication and more.
   // https://developers.cloudflare.com/workers/runtime-apis/bindings/
-  
+
   // Environment Variables
   // https://developers.cloudflare.com/workers/wrangler/configuration/#environment-variables
-  "vars": {
-    "OPENAI_API_KEY": "your-openai-api-key",
-    "CF_ACCOUNT_ID": "your-cf-account-id",
-    "AI_GATEWAY_ID": "your-ai-gateway-id"
-  },
   // Note: Use secrets to store sensitive data.
   // https://developers.cloudflare.com/workers/configuration/secrets/
-  
+
   // Static Assets
   // https://developers.cloudflare.com/workers/static-assets/binding/
   "assets": {
