@@ -10,9 +10,9 @@
     "config:generate:deploy": "./scripts/generate-wrangler-config.sh --deploy",
     "deploy": "pnpm run config:generate:deploy && pnpm run build && wrangler deploy",
     "dev": "pnpm run config:generate && react-router dev",
-    "postinstall": "npm run cf-typegen",
+    "postinstall": "pnpm run config:generate && pnpm run cf-typegen",
     "preview": "pnpm run build && vite preview",
-    "typecheck": "pnpm run config:generate && npm run cf-typegen && react-router typegen && tsc -b",
+    "typecheck": "pnpm run config:generate && pnpm run cf-typegen && react-router typegen && tsc -b",
     "lint": "biome check --write .",
     "format": "biome format --write .",
     "test": "vitest"
