@@ -121,3 +121,29 @@
     min-height: 0;
   }
 }
+
+/* Dark mode scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: oklch(0.372 0.044 257.287) oklch(0.279 0.041 260.031); /* slate-700 on slate-800 */
+}
+
+/* Webkit browsers (Chrome, Safari, Edge) */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: oklch(0.279 0.041 260.031); /* slate-800 */
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: oklch(0.372 0.044 257.287); /* slate-700 */
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: oklch(0.554 0.046 257.417); /* slate-500 */
+}
