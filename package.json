@@ -6,11 +6,13 @@
   "scripts": {
     "build": "react-router build",
     "cf-typegen": "wrangler types",
-    "deploy": "pnpm run build && wrangler deploy",
-    "dev": "react-router dev",
+    "config:generate": "./scripts/generate-wrangler-config.sh",
+    "config:generate:deploy": "./scripts/generate-wrangler-config.sh --deploy",
+    "deploy": "pnpm run config:generate:deploy && pnpm run build && wrangler deploy",
+    "dev": "pnpm run config:generate && react-router dev",
     "postinstall": "npm run cf-typegen",
     "preview": "pnpm run build && vite preview",
-    "typecheck": "npm run cf-typegen && react-router typegen && tsc -b",
+    "typecheck": "pnpm run config:generate && npm run cf-typegen && react-router typegen && tsc -b",
     "lint": "biome check --write .",
     "format": "biome format --write .",
     "test": "vitest"
