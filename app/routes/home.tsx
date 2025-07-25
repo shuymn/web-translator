@@ -114,13 +114,14 @@ export default function TranslatorPage() {
                   type="submit"
                   className="bg-primary hover:bg-primary/90 text-primary-foreground"
                   disabled={isLoading || !input.trim()}
+                  aria-label={isLoading ? "翻訳中..." : "翻訳する"}
                 >
                   {isLoading ? (
-                    <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                    <Loader2 className="w-4 h-4 sm:mr-2 animate-spin" />
                   ) : (
-                    <Languages className="w-4 h-4 mr-2" />
+                    <Languages className="w-4 h-4 sm:mr-2" />
                   )}
-                  {isLoading ? "翻訳中..." : "翻訳する"}
+                  <span className="hidden sm:inline">{isLoading ? "翻訳中..." : "翻訳する"}</span>
                 </Button>
               </div>
             </CardHeader>
@@ -233,9 +234,10 @@ export default function TranslatorPage() {
                   }}
                   disabled={!hasCompletion}
                   className={outputButtonClassName}
+                  aria-label={copied ? "コピーしました" : "コピーする"}
                 >
-                  {copied ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-                  {copied ? "コピーしました" : "コピーする"}
+                  {copied ? <Check className="w-4 h-4 sm:mr-2" /> : <Copy className="w-4 h-4 sm:mr-2" />}
+                  <span className="hidden sm:inline">{copied ? "コピーしました" : "コピーする"}</span>
                 </Button>
                 <Button
                   key="preview-button"
@@ -244,9 +246,10 @@ export default function TranslatorPage() {
                   onClick={() => setShowPreview(!showPreview)}
                   disabled={!hasCompletion}
                   className={outputButtonClassName}
+                  aria-label={showPreview ? "プレビューを隠す" : "Markdownプレビュー"}
                 >
-                  <FileText className="w-4 h-4 mr-2" />
-                  {showPreview ? "プレビューを隠す" : "Markdownプレビュー"}
+                  <FileText className="w-4 h-4 sm:mr-2" />
+                  <span className="hidden sm:inline">{showPreview ? "プレビューを隠す" : "Markdownプレビュー"}</span>
                 </Button>
               </div>
             </CardHeader>
