@@ -2,6 +2,7 @@ import css from "@shikijs/langs/css";
 import go from "@shikijs/langs/go";
 import js from "@shikijs/langs/javascript";
 import json from "@shikijs/langs/json";
+import jsx from "@shikijs/langs/jsx";
 import markdown from "@shikijs/langs/markdown";
 import python from "@shikijs/langs/python";
 import shell from "@shikijs/langs/shellscript";
@@ -20,7 +21,7 @@ import { remarkMermaid } from "./remark-mermaid";
 
 const highlighter = createHighlighterCoreSync({
   themes: [githubDark],
-  langs: [css, go, js, json, markdown, python, shell, tsx, ts, yaml],
+  langs: [css, go, js, json, markdown, python, shell, tsx, ts, yaml, jsx],
   engine: createJavaScriptRegexEngine(),
 });
 
