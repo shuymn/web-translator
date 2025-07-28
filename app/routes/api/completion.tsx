@@ -27,32 +27,40 @@ function errorHandler(error: unknown, context?: { sourceLang?: string; targetLan
     },
   });
 
-  // Return a user-friendly error message
+  // Return a user-friendly error message in Japanese
   if (error == null) {
-    return "An unknown error occurred during translation";
+    return "翻訳中に不明なエラーが発生しました";
   }
 
   if (typeof error === "string") {
-    return error;
+    // Don't return raw string errors as they might contain sensitive information
+    console.error("String error:", error);
+    return "翻訳に失敗しました。しばらくしてからもう一度お試しください。";
   }
 
   if (error instanceof Error) {
     // Check for specific error types and provide helpful messages
     if (error.message.includes("rate limit")) {
-      return "Translation service is temporarily unavailable due to high demand. Please try again in a moment.";
+      return "アクセスが集中しているため、翻訳サービスが一時的に利用できません。しばらくしてからもう一度お試しください。";
     }
     if (error.message.includes("timeout")) {
-      return "The translation request timed out. Please try with a shorter text.";
+      return "翻訳リクエストがタイムアウトしました。より短いテキストでお試しください。";
     }
     if (error.message.includes("model")) {
-      return "The translation model is currently unavailable. Please try again later.";
+      return "翻訳モデルが現在利用できません。しばらくしてからもう一度お試しください。";
+    }
+    if (error.message.includes("network") || error.message.includes("fetch")) {
+      return "ネットワークエラーが発生しました。接続を確認してもう一度お試しください。";
+    }
+    if (error.message.includes("auth") || error.message.includes("api key")) {
+      return "翻訳サービスの設定エラーです。サポートにお問い合わせください。";
     }
 
-    // For other errors, return a sanitized message
-    return `Translation failed: ${error.message}`;
+    // For other errors, return a generic message without exposing internal details
+    return "翻訳に失敗しました。しばらくしてからもう一度お試しください。";
   }
 
-  return "An unexpected error occurred during translation";
+  return "翻訳中に予期しないエラーが発生しました";
 }
 
 export async function action({ request }: Route.ActionArgs) {
@@ -112,7 +120,7 @@ export async function action({ request }: Route.ActionArgs) {
                  - SQL: SELECT, FROM, WHERE, INSERT, UPDATE
                  - YAML: key: value patterns with consistent indentation
                  - JSON: { }, [ ], "key": "value"
-                 
+
                  CONTEXT-BASED DETECTION:
                  Also use surrounding sentences to infer the language:
                  - "React component", "Next.js", "Vue" → JavaScript/TypeScript
@@ -129,7 +137,7 @@ export async function action({ request }: Route.ActionArgs) {
                  - If you see unformatted code like:
                    const greeting = "Hello"
                    console.log(greeting)
-                   
+
                    Wrap it as:
                    \`\`\`js
                    const greeting = "Hello"
@@ -140,7 +148,7 @@ export async function action({ request }: Route.ActionArgs) {
                    function Button({ label }) {
                      return <button>{label}</button>
                    }
-                   
+
                    Wrap it as:
                    \`\`\`tsx
                    function Button({ label }) {
