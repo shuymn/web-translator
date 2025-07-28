@@ -112,6 +112,15 @@ export async function action({ request }: Route.ActionArgs) {
                  - SQL: SELECT, FROM, WHERE, INSERT, UPDATE
                  - YAML: key: value patterns with consistent indentation
                  - JSON: { }, [ ], "key": "value"
+                 
+                 CONTEXT-BASED DETECTION:
+                 Also use surrounding sentences to infer the language:
+                 - "React component", "Next.js", "Vue" → JavaScript/TypeScript
+                 - "Django", "Flask", "pip install" → Python
+                 - "terminal", "command line", "bash script" → Shell/Bash
+                 - "database query", "table", "schema" → SQL
+                 - "configuration file", "settings" → YAML/JSON
+                 - "Dockerfile", "container" → Dockerfile syntax
 
                  EXAMPLES:
                  - If you see: Run npm install to install dependencies
@@ -125,6 +134,18 @@ export async function action({ request }: Route.ActionArgs) {
                    \`\`\`js
                    const greeting = "Hello"
                    console.log(greeting)
+                   \`\`\`
+
+                 - If context mentions "React component" and you see:
+                   function Button({ label }) {
+                     return <button>{label}</button>
+                   }
+                   
+                   Wrap it as:
+                   \`\`\`tsx
+                   function Button({ label }) {
+                     return <button>{label}</button>
+                   }
                    \`\`\`
 
                  Translate natural language text while improving technical documentation formatting.
