@@ -40,6 +40,7 @@ const OutputContent = memo(({ completion, showPreview }: { completion: string; s
 
 OutputContent.displayName = "OutputContent";
 
+// Pure utility function - moved outside component to avoid recreation on every render
 const formatTimestamp = () => {
   const now = new Date();
   const year = now.getFullYear();
