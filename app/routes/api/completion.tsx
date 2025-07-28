@@ -157,12 +157,14 @@ export async function action({ request }: Route.ActionArgs) {
                    \`\`\`
 
                  Translate natural language text while improving technical documentation formatting.
-                 Provide only the translation without any explanations.`,
+                 Provide only the translation without any explanations.
+                 Stop when sufficient information was provided.`,
       },
       { role: "user", content: prompt },
     ],
     temperature: 0.3,
-    maxTokens: 4096,
+    maxSteps: 5,
+    experimental_continueSteps: true,
     onFinish: async ({ text }) => {
       await setCached(cacheKey, text, 604800); // 7 days
     },
