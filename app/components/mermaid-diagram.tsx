@@ -1,5 +1,5 @@
 import mermaid from "mermaid";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useEffect, useId, useRef, useState } from "react";
 
 interface MermaidDiagramProps {
   chart: string;
@@ -51,6 +51,7 @@ function isMermaidError(err: unknown): err is { message: string } {
 export const MermaidDiagram = memo(({ chart }: MermaidDiagramProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const uniqueId = useId().replace(/:/g, "_"); // React's useId includes colons, replace for valid HTML ID
 
   useEffect(() => {
     const container = containerRef.current;
@@ -74,15 +75,20 @@ export const MermaidDiagram = memo(({ chart }: MermaidDiagramProps) => {
         // Initialize mermaid on first render (only in browser)
         await initializeMermaid();
 
-        await mermaid.run({
-          nodes: [container],
-          suppressErrors: false,
-        });
+        // Use render() instead of run() for better control over IDs
+        const { svg } = await mermaid.render(`mermaid-${uniqueId}`, chart);
+
+        // Only update DOM if effect is still active
+        if (!isCancelled) {
+          container.innerHTML = svg;
+        }
       } catch (err) {
         // Only update state if the effect is still active
         if (!isCancelled) {
           console.error("Mermaid rendering error:", err);
           setError(isMermaidError(err) ? err.message : "Failed to render diagram");
+          // Clear any partial rendering
+          container.innerHTML = "";
         }
       }
     };
@@ -93,7 +99,7 @@ export const MermaidDiagram = memo(({ chart }: MermaidDiagramProps) => {
     return () => {
       isCancelled = true;
     };
-  }, [chart]);
+  }, [chart, uniqueId]);
 
   if (error) {
     return (
@@ -105,8 +111,18 @@ export const MermaidDiagram = memo(({ chart }: MermaidDiagramProps) => {
   }
 
   return (
-    <div className="mermaid my-4 overflow-x-auto" ref={containerRef}>
-      {chart}
-    </div>
+    <div
+      className="mermaid my-4 overflow-x-auto"
+      ref={containerRef}
+      id={`mermaid-container-${uniqueId}`}
+      style={{
+        // Ensure proper isolation and prevent overlapping
+        position: "relative",
+        isolation: "isolate",
+        contain: "layout style",
+        // Prevent SVG overflow issues
+        maxWidth: "100%",
+      }}
+    />
   );
 });

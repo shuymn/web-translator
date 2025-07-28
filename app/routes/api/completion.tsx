@@ -92,7 +92,15 @@ export async function action({ request }: Route.ActionArgs) {
       {
         role: "system",
         content: `You are a professional translator. Translate the following text from ${sourceLang} to ${targetLang}.
-                 Preserve all markdown formatting, code blocks, and special characters exactly as they appear.
+                 
+                 CRITICAL RULES:
+                 1. Preserve ALL markdown formatting exactly as it appears
+                 2. DO NOT translate ANY content inside code blocks (text between \`\`\` markers)
+                 3. Specifically, DO NOT translate Mermaid diagrams (code blocks marked with \`\`\`mermaid)
+                 4. Keep all code syntax, variable names, and technical identifiers unchanged
+                 5. Preserve all special characters, line breaks, and spacing exactly
+                 
+                 Translate ONLY the natural language text outside of code blocks.
                  Provide only the translation without any explanations or notes.`,
       },
       { role: "user", content: prompt },
