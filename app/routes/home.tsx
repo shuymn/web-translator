@@ -1,11 +1,12 @@
 import { useCompletion } from "@ai-sdk/react";
 import { ArrowRightLeft, Check, Copy, FileText, Languages, Loader2 } from "lucide-react";
 import { memo, useMemo, useState } from "react";
+import { toast } from "sonner";
 import { MarkdownPreview } from "../components/markdown-preview";
-import { Alert, AlertDescription } from "../components/ui/alert";
 import { Button } from "../components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "../components/ui/card";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import { Toaster } from "../components/ui/sonner";
 import { Textarea } from "../components/ui/textarea";
 
 export function meta() {
@@ -39,6 +40,18 @@ const OutputContent = memo(({ completion, showPreview }: { completion: string; s
 
 OutputContent.displayName = "OutputContent";
 
+// Pure utility function - moved outside component to avoid recreation on every render
+const formatTimestamp = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  const hours = String(now.getHours()).padStart(2, "0");
+  const minutes = String(now.getMinutes()).padStart(2, "0");
+  const seconds = String(now.getSeconds()).padStart(2, "0");
+  return `${year}/${month}/${day} ${hours}:${minutes}:${seconds}`;
+};
+
 export default function TranslatorPage() {
   const [sourceLang, setSourceLang] = useState<Language>(LANGUAGES.English);
   const targetLang = sourceLang === LANGUAGES.English ? LANGUAGES.Japanese : LANGUAGES.English; // automatically switch targetLang
@@ -51,11 +64,22 @@ export default function TranslatorPage() {
   const outputButtonClassName =
     "bg-primary hover:bg-primary/90 text-primary-foreground transition-opacity duration-200";
 
-  const { completion, input, setInput, handleSubmit, isLoading, error, complete } = useCompletion({
+  const { completion, input, setInput, handleSubmit, isLoading, complete } = useCompletion({
     api: "/api/completion",
     body: {
       sourceLang,
       targetLang,
+    },
+    onFinish: () => {
+      toast.success("翻訳が完了しました", {
+        description: formatTimestamp(),
+      });
+    },
+    onError: (error) => {
+      toast.error(error.message || "翻訳中にエラーが発生しました", {
+        description: formatTimestamp(),
+        duration: 10 * 1000, // 10 seconds
+      });
     },
   });
 
@@ -232,7 +256,7 @@ export default function TranslatorPage() {
                       console.error("Failed to copy text:", err);
                     }
                   }}
-                  disabled={!hasCompletion}
+                  disabled={!hasCompletion || isLoading}
                   className={outputButtonClassName}
                   aria-label={copied ? "コピーしました" : "コピーする"}
                 >
@@ -244,7 +268,7 @@ export default function TranslatorPage() {
                   type="button"
                   size="sm"
                   onClick={() => setShowPreview(!showPreview)}
-                  disabled={!hasCompletion}
+                  disabled={!hasCompletion || isLoading}
                   className={outputButtonClassName}
                   aria-label={showPreview ? "プレビューを隠す" : "Markdownプレビュー"}
                 >
@@ -275,13 +299,7 @@ export default function TranslatorPage() {
         </main>
       </form>
 
-      {error && (
-        <div className="fixed bottom-4 right-4 max-w-md">
-          <Alert variant="destructive">
-            <AlertDescription>{error.message}</AlertDescription>
-          </Alert>
-        </div>
-      )}
+      <Toaster richColors position="bottom-right" />
     </div>
   );
 }

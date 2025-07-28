@@ -3,6 +3,10 @@ import { createClient } from "redis";
 // Type for the Redis client
 type RedisClient = ReturnType<typeof createClient>;
 
+// Redis configuration constants
+const REDIS_CONNECTION_TIMEOUT_MS = 3000; // 3 seconds
+const DEFAULT_CACHE_TTL_SECONDS = 604800; // 7 days
+
 // Global instance for connection reuse (Vercel Fluid Compute optimization)
 let globalRedisClient: RedisClient | null = null;
 
@@ -14,7 +18,7 @@ export async function getRedisClient(): Promise<RedisClient> {
   const client = createClient({
     url: process.env.REDIS_URL,
     socket: {
-      connectTimeout: 10000,
+      connectTimeout: REDIS_CONNECTION_TIMEOUT_MS,
       keepAlive: true,
     },
   });
@@ -23,7 +27,13 @@ export async function getRedisClient(): Promise<RedisClient> {
     console.error("Redis Client Error:", err);
   });
 
-  await client.connect();
+  // Add timeout to connection attempt
+  await Promise.race([
+    client.connect(),
+    new Promise((_, reject) =>
+      setTimeout(() => reject(new Error("Redis connection timeout")), REDIS_CONNECTION_TIMEOUT_MS),
+    ),
+  ]);
   globalRedisClient = client;
 
   return client;
@@ -40,7 +50,7 @@ export async function getCached(key: string): Promise<string | null> {
   }
 }
 
-export async function setCached(key: string, value: string, ttl: number = 604800): Promise<void> {
+export async function setCached(key: string, value: string, ttl: number = DEFAULT_CACHE_TTL_SECONDS): Promise<void> {
   try {
     const client = await getRedisClient();
     await client.set(key, value, { EX: ttl });
