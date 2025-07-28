@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "@biomejs/biome": "2.1.2",
-    "@react-router/dev": "7.7.0",
+    "@react-router/dev": "7.7.1",
     "@shikijs/langs": "3.8.1",
     "@shikijs/rehype": "3.8.1",
     "@shikijs/themes": "3.8.1",
