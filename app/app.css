@@ -147,3 +147,50 @@
 *::-webkit-scrollbar-thumb:hover {
   background: oklch(0.554 0.046 257.417); /* slate-500 */
 }
+
+/* Mermaid diagram isolation and styling */
+.mermaid {
+  /* Ensure each diagram is properly isolated */
+  isolation: isolate;
+  contain: layout style;
+  position: relative;
+  /* Prevent diagrams from overflowing their containers */
+  max-width: 100%;
+  overflow: auto;
+}
+
+/* Ensure Mermaid SVGs don't interfere with each other */
+.mermaid svg {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  /* Prevent position conflicts */
+  position: relative !important;
+  /* Reset any absolute positioning from Mermaid */
+  top: auto !important;
+  left: auto !important;
+  /* Ensure proper spacing */
+  margin: 0 auto;
+}
+
+/* Scope Mermaid's internal styles to prevent conflicts */
+.mermaid[id^="mermaid-container-"] {
+  /* Create a stacking context for each diagram */
+  z-index: 0;
+  /* Ensure diagrams don't overlap */
+  clear: both;
+  /* Add spacing between consecutive diagrams */
+  margin-bottom: 1rem;
+}
+
+/* Fix any potential tooltip/popup positioning issues */
+.mermaid .mermaidTooltip,
+.mermaid .popover {
+  z-index: 1000;
+  position: absolute;
+}
+
+/* Ensure error messages are properly styled */
+.mermaid + .bg-red-900\/20 {
+  margin-top: 1rem;
+}
