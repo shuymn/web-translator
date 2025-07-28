@@ -77,6 +77,7 @@ export default function TranslatorPage() {
     onError: (error) => {
       toast.error(error.message || "翻訳中にエラーが発生しました", {
         description: formatTimestamp(),
+        duration: 10 * 1000, // 10 seconds
       });
     },
   });
@@ -297,7 +298,7 @@ export default function TranslatorPage() {
         </main>
       </form>
 
-      <Toaster position="bottom-right" />
+      <Toaster richColors position="bottom-right" />
     </div>
   );
 }
