@@ -2,7 +2,7 @@
   "name": "web-translator",
   "private": true,
   "type": "module",
-  "packageManager": "pnpm@10.13.1",
+  "packageManager": "pnpm@10.14.0",
   "scripts": {
     "build": "react-router build",
     "dev": "react-router dev",
