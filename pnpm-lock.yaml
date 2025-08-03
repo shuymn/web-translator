@@ -22,13 +22,13 @@ importers:
         version: 1.2.3(@types/react@19.1.9)(react@19.1.1)
       '@react-router/node':
         specifier: ^7.7.0
-        version: 7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)
+        version: 7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)
       '@tailwindcss/typography':
         specifier: ^0.5.16
         version: 0.5.16(tailwindcss@4.1.11)
       '@vercel/react-router':
         specifier: ^1.2.2
-        version: 1.2.2(@react-router/dev@7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3))(isbot@5.1.29)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+        version: 1.2.2(@react-router/dev@7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2))(isbot@5.1.29)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       ai:
         specifier: ^4.3.19
         version: 4.3.19(react@19.1.1)(zod@3.25.76)
@@ -89,13 +89,13 @@ importers:
         version: 2.1.3
       '@commitlint/cli':
         specifier: 19.8.1
-        version: 19.8.1(@types/node@22.17.0)(typescript@5.8.3)
+        version: 19.8.1(@types/node@22.17.0)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: 19.8.1
         version: 19.8.1
       '@react-router/dev':
         specifier: 7.7.1
-        version: 7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1)
+        version: 7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1)
       '@shikijs/langs':
         specifier: 3.9.0
         version: 3.9.0
@@ -133,8 +133,8 @@ importers:
         specifier: 4.1.11
         version: 4.1.11
       typescript:
-        specifier: 5.8.3
-        version: 5.8.3
+        specifier: 5.9.2
+        version: 5.9.2
       unified:
         specifier: 11.0.5
         version: 11.0.5
@@ -146,7 +146,7 @@ importers:
         version: 7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)
       vite-tsconfig-paths:
         specifier: 5.1.4
-        version: 5.1.4(typescript@5.8.3)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))
+        version: 5.1.4(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))
       vitest:
         specifier: 3.2.4
         version: 3.2.4(@edge-runtime/vm@3.2.0)(@types/debug@4.1.12)(@types/node@22.17.0)(jiti@2.4.2)(jsdom@26.1.0)(lightningcss@1.30.1)
@@ -4148,8 +4148,8 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
 
-  typescript@5.8.3:
-    resolution: {integrity: sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==}
+  typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -4878,11 +4878,11 @@ snapshots:
   '@cloudflare/workerd-windows-64@1.20250712.0':
     optional: true
 
-  '@commitlint/cli@19.8.1(@types/node@22.17.0)(typescript@5.8.3)':
+  '@commitlint/cli@19.8.1(@types/node@22.17.0)(typescript@5.9.2)':
     dependencies:
       '@commitlint/format': 19.8.1
       '@commitlint/lint': 19.8.1
-      '@commitlint/load': 19.8.1(@types/node@22.17.0)(typescript@5.8.3)
+      '@commitlint/load': 19.8.1(@types/node@22.17.0)(typescript@5.9.2)
       '@commitlint/read': 19.8.1
       '@commitlint/types': 19.8.1
       tinyexec: 1.0.1
@@ -4929,15 +4929,15 @@ snapshots:
       '@commitlint/rules': 19.8.1
       '@commitlint/types': 19.8.1
 
-  '@commitlint/load@19.8.1(@types/node@22.17.0)(typescript@5.8.3)':
+  '@commitlint/load@19.8.1(@types/node@22.17.0)(typescript@5.9.2)':
     dependencies:
       '@commitlint/config-validator': 19.8.1
       '@commitlint/execute-rule': 19.8.1
       '@commitlint/resolve-extends': 19.8.1
       '@commitlint/types': 19.8.1
       chalk: 5.4.1
-      cosmiconfig: 9.0.0(typescript@5.8.3)
-      cosmiconfig-typescript-loader: 6.1.0(@types/node@22.17.0)(cosmiconfig@9.0.0(typescript@5.8.3))(typescript@5.8.3)
+      cosmiconfig: 9.0.0(typescript@5.9.2)
+      cosmiconfig-typescript-loader: 6.1.0(@types/node@22.17.0)(cosmiconfig@9.0.0(typescript@5.9.2))(typescript@5.9.2)
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       lodash.uniq: 4.5.0
@@ -5626,7 +5626,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.1': {}
 
-  '@react-router/dev@7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1)':
+  '@react-router/dev@7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1)':
     dependencies:
       '@babel/core': 7.28.0
       '@babel/generator': 7.28.0
@@ -5636,7 +5636,7 @@ snapshots:
       '@babel/traverse': 7.28.0
       '@babel/types': 7.28.1
       '@npmcli/package-json': 4.0.1
-      '@react-router/node': 7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)
+      '@react-router/node': 7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)
       arg: 5.0.2
       babel-dead-code-elimination: 1.0.10
       chokidar: 4.0.3
@@ -5654,11 +5654,11 @@ snapshots:
       semver: 7.7.2
       set-cookie-parser: 2.7.1
       tinyglobby: 0.2.14
-      valibot: 0.41.0(typescript@5.8.3)
+      valibot: 0.41.0(typescript@5.9.2)
       vite: 7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)
       vite-node: 3.2.4(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)
     optionalDependencies:
-      typescript: 5.8.3
+      typescript: 5.9.2
       wrangler: 4.25.1
     transitivePeerDependencies:
       - '@types/node'
@@ -5676,12 +5676,12 @@ snapshots:
       - tsx
       - yaml
 
-  '@react-router/node@7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)':
+  '@react-router/node@7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)':
     dependencies:
       '@mjackson/node-fetch-server': 0.2.0
       react-router: 7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
     optionalDependencies:
-      typescript: 5.8.3
+      typescript: 5.9.2
 
   '@redis/bloom@5.7.0(@redis/client@5.7.0)':
     dependencies:
@@ -6219,10 +6219,10 @@ snapshots:
 
   '@vercel/python@5.0.0': {}
 
-  '@vercel/react-router@1.2.2(@react-router/dev@7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3))(isbot@5.1.29)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+  '@vercel/react-router@1.2.2(@react-router/dev@7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1))(@react-router/node@7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2))(isbot@5.1.29)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
     dependencies:
-      '@react-router/dev': 7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1)
-      '@react-router/node': 7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.8.3)
+      '@react-router/dev': 7.7.1(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1))(wrangler@4.25.1)
+      '@react-router/node': 7.7.1(react-router@7.7.1(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(typescript@5.9.2)
       '@vercel/static-config': 3.1.1
       isbot: 5.1.29
       react: 19.1.1
@@ -6577,21 +6577,21 @@ snapshots:
     dependencies:
       layout-base: 2.0.1
 
-  cosmiconfig-typescript-loader@6.1.0(@types/node@22.17.0)(cosmiconfig@9.0.0(typescript@5.8.3))(typescript@5.8.3):
+  cosmiconfig-typescript-loader@6.1.0(@types/node@22.17.0)(cosmiconfig@9.0.0(typescript@5.9.2))(typescript@5.9.2):
     dependencies:
       '@types/node': 22.17.0
-      cosmiconfig: 9.0.0(typescript@5.8.3)
+      cosmiconfig: 9.0.0(typescript@5.9.2)
       jiti: 2.4.2
-      typescript: 5.8.3
+      typescript: 5.9.2
 
-  cosmiconfig@9.0.0(typescript@5.8.3):
+  cosmiconfig@9.0.0(typescript@5.9.2):
     dependencies:
       env-paths: 2.2.1
       import-fresh: 3.3.1
       js-yaml: 4.1.0
       parse-json: 5.2.0
     optionalDependencies:
-      typescript: 5.8.3
+      typescript: 5.9.2
 
   create-require@1.1.1: {}
 
@@ -8768,9 +8768,9 @@ snapshots:
 
   ts-toolbelt@6.15.5: {}
 
-  tsconfck@3.1.6(typescript@5.8.3):
+  tsconfck@3.1.6(typescript@5.9.2):
     optionalDependencies:
-      typescript: 5.8.3
+      typescript: 5.9.2
 
   tslib@2.8.1: {}
 
@@ -8778,7 +8778,7 @@ snapshots:
 
   typescript@4.9.5: {}
 
-  typescript@5.8.3: {}
+  typescript@5.9.2: {}
 
   ufo@1.6.1: {}
 
@@ -8880,9 +8880,9 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  valibot@0.41.0(typescript@5.8.3):
+  valibot@0.41.0(typescript@5.9.2):
     optionalDependencies:
-      typescript: 5.8.3
+      typescript: 5.9.2
 
   validate-npm-package-license@3.0.4:
     dependencies:
@@ -8951,11 +8951,11 @@ snapshots:
       - tsx
       - yaml
 
-  vite-tsconfig-paths@5.1.4(typescript@5.8.3)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)):
+  vite-tsconfig-paths@5.1.4(typescript@5.9.2)(vite@7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)):
     dependencies:
       debug: 4.4.1
       globrex: 0.1.2
-      tsconfck: 3.1.6(typescript@5.8.3)
+      tsconfck: 3.1.6(typescript@5.9.2)
     optionalDependencies:
       vite: 7.0.6(@types/node@22.17.0)(jiti@2.4.2)(lightningcss@1.30.1)
     transitivePeerDependencies:
