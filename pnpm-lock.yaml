@@ -64,7 +64,7 @@ importers:
         version: 7.8.0(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
       redis:
         specifier: ^5.6.1
-        version: 5.7.0
+        version: 5.8.1
       rehype-raw:
         specifier: ^7.0.0
         version: 7.0.0
@@ -1402,33 +1402,33 @@ packages:
       typescript:
         optional: true
 
-  '@redis/bloom@5.7.0':
-    resolution: {integrity: sha512-KtBHDH2Aw1BxYDQd87PJsdEmZcpMbD4oPzdBwB4IvSRmMovukO2NNGi5vpCHhCoicS83zu7cjX1fw79uFBZFJA==}
+  '@redis/bloom@5.8.1':
+    resolution: {integrity: sha512-hJOJr/yX6BttnyZ+nxD3Ddiu2lPig4XJjyAK1v7OSHOJNUTfn3RHBryB9wgnBMBdkg9glVh2AjItxIXmr600MA==}
     engines: {node: '>= 18'}
     peerDependencies:
-      '@redis/client': ^5.7.0
+      '@redis/client': ^5.8.1
 
-  '@redis/client@5.7.0':
-    resolution: {integrity: sha512-YV3Knspdj9k6H6s4v8QRcj1WBxHt40vtPmszLKGwRUOUpUOLWSlI9oCUjprMDcQNzgSCXGXYdL/Aj6nT2+Ub0w==}
+  '@redis/client@5.8.1':
+    resolution: {integrity: sha512-hD5Tvv7G0t8b3w8ao3kQ4jEPUmUUC6pqA18c8ciYF5xZGfUGBg0olQHW46v6qSt4O5bxOuB3uV7pM6H5wEjBwA==}
     engines: {node: '>= 18'}
 
-  '@redis/json@5.7.0':
-    resolution: {integrity: sha512-VP3wtse1PSB/UjZAV1lWyDrWrrZcwi/cjb3L0lIarcIJ+EbHliB2QPml0Bvjz8F8F0eDJRtChJVXFc+jhGxCtA==}
-    engines: {node: '>= 18'}
-    peerDependencies:
-      '@redis/client': ^5.7.0
-
-  '@redis/search@5.7.0':
-    resolution: {integrity: sha512-dDZIq8pZJnT+kZ9xRlLLi2Rvkd792z9eh31QRIwPr5wXjAXeaQ+Nf65em6dLpsxZ60MmhwDwLrBPJpYVjKPBPQ==}
+  '@redis/json@5.8.1':
+    resolution: {integrity: sha512-kyvM8Vn+WjJI++nRsIoI9TbdfCs1/TgD0Hp7Z7GiG6W4IEBzkXGQakli+R5BoJzUfgh7gED2fkncYy1NLprMNg==}
     engines: {node: '>= 18'}
     peerDependencies:
-      '@redis/client': ^5.7.0
+      '@redis/client': ^5.8.1
 
-  '@redis/time-series@5.7.0':
-    resolution: {integrity: sha512-AJTF9sz3y1MJAukgQW4Jw8zt8qGOE3+1d87pufOP35zsFBlHipGscpctoXiNMebfy0114y/FjSprr65LjbJQSQ==}
+  '@redis/search@5.8.1':
+    resolution: {integrity: sha512-CzuKNTInTNQkxqehSn7QiYcM+th+fhjQn5ilTvksP1wPjpxqK0qWt92oYg3XZc3tO2WuXkqDvTujc4D7kb6r/A==}
     engines: {node: '>= 18'}
     peerDependencies:
-      '@redis/client': ^5.7.0
+      '@redis/client': ^5.8.1
+
+  '@redis/time-series@5.8.1':
+    resolution: {integrity: sha512-klvdR96U9oSOyqvcectoAGhYlMOnMS3I5UWUOgdBn1buMODiwM/E4Eds7gxldKmtowe4rLJSF1CyIqyZTjy8Ow==}
+    engines: {node: '>= 18'}
+    peerDependencies:
+      '@redis/client': ^5.8.1
 
   '@rolldown/pluginutils@1.0.0-beta.27':
     resolution: {integrity: sha512-+d0F4MKMCbeVUJwG96uQ4SgAznZNSq93I3V+9NHA4OpvqG8mRCpGdKmK8l/dl02h2CCDHwW2FqilnTyDcAnqjA==}
@@ -3872,8 +3872,8 @@ packages:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
 
-  redis@5.7.0:
-    resolution: {integrity: sha512-ZRbiWYBUYdDTopodRjCVwwCLThrkciPW3bOrkdMCW3nYEelBwUGN6SovmACDsiLUB7mnU3mXnaI5f0W7bDcwng==}
+  redis@5.8.1:
+    resolution: {integrity: sha512-RZjBKYX/qFF809x6vDcE5VA6L3MmiuT+BkbXbIyyyeU0lPD47V4z8qTzN+Z/kKFwpojwCItOfaItYuAjNs8pTQ==}
     engines: {node: '>= 18'}
 
   regex-recursion@6.0.2:
@@ -5842,25 +5842,25 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.2
 
-  '@redis/bloom@5.7.0(@redis/client@5.7.0)':
+  '@redis/bloom@5.8.1(@redis/client@5.8.1)':
     dependencies:
-      '@redis/client': 5.7.0
+      '@redis/client': 5.8.1
 
-  '@redis/client@5.7.0':
+  '@redis/client@5.8.1':
     dependencies:
       cluster-key-slot: 1.1.2
 
-  '@redis/json@5.7.0(@redis/client@5.7.0)':
+  '@redis/json@5.8.1(@redis/client@5.8.1)':
     dependencies:
-      '@redis/client': 5.7.0
+      '@redis/client': 5.8.1
 
-  '@redis/search@5.7.0(@redis/client@5.7.0)':
+  '@redis/search@5.8.1(@redis/client@5.8.1)':
     dependencies:
-      '@redis/client': 5.7.0
+      '@redis/client': 5.8.1
 
-  '@redis/time-series@5.7.0(@redis/client@5.7.0)':
+  '@redis/time-series@5.8.1(@redis/client@5.8.1)':
     dependencies:
-      '@redis/client': 5.7.0
+      '@redis/client': 5.8.1
 
   '@rolldown/pluginutils@1.0.0-beta.27': {}
 
@@ -8598,13 +8598,13 @@ snapshots:
 
   readdirp@4.1.2: {}
 
-  redis@5.7.0:
+  redis@5.8.1:
     dependencies:
-      '@redis/bloom': 5.7.0(@redis/client@5.7.0)
-      '@redis/client': 5.7.0
-      '@redis/json': 5.7.0(@redis/client@5.7.0)
-      '@redis/search': 5.7.0(@redis/client@5.7.0)
-      '@redis/time-series': 5.7.0(@redis/client@5.7.0)
+      '@redis/bloom': 5.8.1(@redis/client@5.8.1)
+      '@redis/client': 5.8.1
+      '@redis/json': 5.8.1(@redis/client@5.8.1)
+      '@redis/search': 5.8.1(@redis/client@5.8.1)
+      '@redis/time-series': 5.8.1(@redis/client@5.8.1)
 
   regex-recursion@6.0.2:
     dependencies:
