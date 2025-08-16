@@ -1,4 +1,4 @@
-import { createOpenAI } from "@ai-sdk/openai";
+import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import {
   convertToModelMessages,
   createUIMessageStream,
@@ -99,13 +99,19 @@ export async function action({ request }: Route.ActionArgs) {
   }
 
   // Create AI client directly with OpenAI
-  const openai = createOpenAI({
-    apiKey: process.env.OPENAI_API_KEY,
-  });
+  const openrouter = createOpenRouter({ apiKey: process.env.OPENROUTER_API_KEY });
 
   // Stream translation
   const result = streamText({
-    model: openai.responses("gpt-4.1-nano"),
+    model: openrouter("openai/gpt-oss-120b", {
+      provider: {
+        order: ["cerebras", "groq"],
+        only: ["cerebras", "groq"],
+        data_collection: "deny",
+        sort: "throughput",
+        allow_fallbacks: false,
+      },
+    }),
     system: `You are a professional translator. Translate the following text from ${sourceLang} to ${targetLang}.
 
 FORMATTING IMPROVEMENTS (You SHOULD do these):

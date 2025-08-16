@@ -17,8 +17,8 @@
     "env:add": "pnpm exec vercel env add"
   },
   "dependencies": {
-    "@ai-sdk/openai": "^2.0.0",
     "@ai-sdk/react": "^2.0.0",
+    "@openrouter/ai-sdk-provider": "^1.1.2",
     "@radix-ui/react-select": "^2.2.5",
     "@radix-ui/react-slot": "^1.2.3",
     "@react-router/node": "^7.7.0",
