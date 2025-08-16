@@ -1,5 +1,12 @@
 import { createOpenAI } from "@ai-sdk/openai";
-import { createDataStreamResponse, formatDataStreamPart, streamText } from "ai";
+import {
+  convertToModelMessages,
+  createUIMessageStream,
+  createUIMessageStreamResponse,
+  generateId,
+  stepCountIs,
+  streamText,
+} from "ai";
 import { generateCacheKey } from "../../lib/cache/hash";
 import { getCached, setCached } from "../../lib/cache/redis-storage";
 import type { Route } from "./+types/completion";
@@ -79,12 +86,15 @@ export async function action({ request }: Route.ActionArgs) {
 
   if (cached) {
     // Return cached content as a proper data stream response
-    return createDataStreamResponse({
-      execute(stream) {
-        // Format the cached text as a proper data stream part
-        stream.write(formatDataStreamPart("text", cached));
-      },
-      onError: (error) => errorHandler(error, errorContext),
+    return createUIMessageStreamResponse({
+      stream: createUIMessageStream({
+        execute({ writer }) {
+          // Format the cached text as a proper data stream part
+          const id = generateId();
+          writer.write({ type: "text-delta", id, delta: cached });
+        },
+        onError: (error) => errorHandler(error, errorContext),
+      }),
     });
   }
 
@@ -96,81 +106,75 @@ export async function action({ request }: Route.ActionArgs) {
   // Stream translation
   const result = streamText({
     model: openai.responses("gpt-4.1-nano"),
-    messages: [
-      {
-        role: "system",
-        content: `You are a professional translator. Translate the following text from ${sourceLang} to ${targetLang}.
+    system: `You are a professional translator. Translate the following text from ${sourceLang} to ${targetLang}.
 
-                 FORMATTING IMPROVEMENTS (You SHOULD do these):
-                 1. Wrap obvious code snippets in proper code blocks (\`\`\`) if they aren't already
-                 2. Add language identifiers to code blocks when missing (e.g., \`\`\`ts, \`\`\`python, \`\`\`bash)
-                 3. Fix inconsistent markdown formatting for better readability
-                 4. Preserve the improved formatting in your translation
+FORMATTING IMPROVEMENTS (You SHOULD do these):
+1. Wrap obvious code snippets in proper code blocks (\`\`\`) if they aren't already
+2. Add language identifiers to code blocks when missing (e.g., \`\`\`ts, \`\`\`python, \`\`\`bash)
+3. Fix inconsistent markdown formatting for better readability
+4. Preserve the improved formatting in your translation
 
-                 CODE PRESERVATION (You MUST follow these):
-                 1. DO NOT translate ANY content inside code blocks
-                 2. DO NOT translate code syntax, variable names, function names, or technical identifiers
-                 3. DO NOT translate Mermaid diagrams (keep \`\`\`mermaid blocks exactly as-is)
-                 4. Keep all technical terms and commands in their original language
+CODE PRESERVATION (You MUST follow these):
+1. DO NOT translate ANY content inside code blocks
+2. DO NOT translate code syntax, variable names, function names, or technical identifiers
+3. DO NOT translate Mermaid diagrams (keep \`\`\`mermaid blocks exactly as-is)
+4. Keep all technical terms and commands in their original language
 
-                 LANGUAGE DETECTION HINTS:
-                 - TypeScript/JavaScript: const, let, var, =>, function, import, export
-                 - Python: def, class, import, from, if __name__
-                 - Shell/Bash: $, commands like cd, ls, git, npm, pnpm
-                 - SQL: SELECT, FROM, WHERE, INSERT, UPDATE
-                 - YAML: key: value patterns with consistent indentation
-                 - JSON: { }, [ ], "key": "value"
+LANGUAGE DETECTION HINTS:
+- TypeScript/JavaScript: const, let, var, =>, function, import, export
+- Python: def, class, import, from, if __name__
+- Shell/Bash: $, commands like cd, ls, git, npm, pnpm
+- SQL: SELECT, FROM, WHERE, INSERT, UPDATE
+- YAML: key: value patterns with consistent indentation
+- JSON: { }, [ ], "key": "value"
 
-                 CONTEXT-BASED DETECTION:
-                 Also use surrounding sentences to infer the language:
-                 - "React component", "Next.js", "Vue" → JavaScript/TypeScript
-                 - "Django", "Flask", "pip install" → Python
-                 - "terminal", "command line", "bash script" → Shell/Bash
-                 - "database query", "table", "schema" → SQL
-                 - "configuration file", "settings" → YAML/JSON
-                 - "Dockerfile", "container" → Dockerfile syntax
+CONTEXT-BASED DETECTION:
+Also use surrounding sentences to infer the language:
+- "React component", "Next.js", "Vue" → JavaScript/TypeScript
+- "Django", "Flask", "pip install" → Python
+- "terminal", "command line", "bash script" → Shell/Bash
+- "database query", "table", "schema" → SQL
+- "configuration file", "settings" → YAML/JSON
+- "Dockerfile", "container" → Dockerfile syntax
 
-                 EXAMPLES:
-                 - If you see: Run npm install to install dependencies
-                   Improve to: Run \`npm install\` to install dependencies
+EXAMPLES:
+- If you see: Run npm install to install dependencies
+  Improve to: Run \`npm install\` to install dependencies
 
-                 - If you see unformatted code like:
-                   const greeting = "Hello"
-                   console.log(greeting)
+- If you see unformatted code like:
+  const greeting = "Hello"
+  console.log(greeting)
 
-                   Wrap it as:
-                   \`\`\`js
-                   const greeting = "Hello"
-                   console.log(greeting)
-                   \`\`\`
+  Wrap it as:
+  \`\`\`js
+  const greeting = "Hello"
+  console.log(greeting)
+  \`\`\`
 
-                 - If context mentions "React component" and you see:
-                   function Button({ label }) {
-                     return <button>{label}</button>
-                   }
+- If context mentions "React component" and you see:
+  function Button({ label }) {
+    return <button>{label}</button>
+  }
 
-                   Wrap it as:
-                   \`\`\`tsx
-                   function Button({ label }) {
-                     return <button>{label}</button>
-                   }
-                   \`\`\`
+  Wrap it as:
+  \`\`\`tsx
+  function Button({ label }) {
+    return <button>{label}</button>
+  }
+  \`\`\`
 
-                 Translate natural language text while improving technical documentation formatting.
-                 Provide only the translation without any explanations.
-                 Stop when sufficient information was provided.`,
-      },
-      { role: "user", content: prompt },
-    ],
+Translate natural language text while improving technical documentation formatting.
+Provide only the translation without any explanations.
+Stop when sufficient information was provided.`,
+    messages: convertToModelMessages([{ role: "user", parts: [{ type: "text", text: prompt }] }]),
     temperature: 0.3,
-    maxSteps: 5,
-    experimental_continueSteps: true,
+    stopWhen: stepCountIs(5),
     onFinish: async ({ text }) => {
       await setCached(cacheKey, text, 604800); // 7 days
     },
   });
 
-  return result.toDataStreamResponse({
-    getErrorMessage: (error) => errorHandler(error, errorContext),
+  return result.toUIMessageStreamResponse({
+    onError: (error) => errorHandler(error, errorContext),
   });
 }
