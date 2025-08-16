@@ -1,6 +1,6 @@
 # Web Translator
 
-A modern web-based translation application built with React Router v7 and deployed on Vercel. Features bidirectional English/Japanese translation powered by OpenAI's gpt-4.1-nano model with streaming responses and intelligent caching.
+A modern web-based translation application built with React Router v7 and deployed on Vercel. Features bidirectional English/Japanese translation powered by OpenAI's gpt-oss-120b model via OpenRouter with streaming responses and intelligent caching.
 
 ## Features
 
@@ -16,7 +16,7 @@ A modern web-based translation application built with React Router v7 and deploy
 
 - **Framework**: React Router v7 (formerly Remix)
 - **Runtime**: Vercel Functions with SSR
-- **AI Model**: OpenAI gpt-4.1-nano via Vercel AI SDK
+- **AI Model**: OpenAI gpt-oss-120b via OpenRouter
 - **Styling**: Tailwind CSS + shadcn/ui components
 - **Syntax Highlighting**: Shiki.js
 - **Package Manager**: pnpm
@@ -28,7 +28,7 @@ A modern web-based translation application built with React Router v7 and deploy
 - pnpm (`npm install -g pnpm`)
 - Docker (for local Redis development)
 - Vercel account
-- OpenAI API key
+- OpenRouter API key
 - Redis instance (Vercel KV, Upstash, or self-hosted)
 
 ## Installation
@@ -39,7 +39,7 @@ pnpm install
 
 # Set up local development environment
 cp .env.example .env.local
-# Edit .env.local with your OpenAI API key and Redis URL
+# Edit .env.local with your OpenRouter API key and Redis URL
 
 # Start local Redis (optional, for local development)
 docker compose up -d
@@ -106,7 +106,7 @@ The project is configured with:
 
 | Variable | Description | Required |
 |----------|-------------|----------|
-| `OPENAI_API_KEY` | OpenAI API key for gpt-4.1-nano | Yes |
+| `OPENROUTER_API_KEY` | OpenRouter API key for accessing gpt-oss-120b | Yes |
 | `REDIS_URL` | Redis connection URL | Yes |
 
 ## Project Structure
@@ -168,4 +168,4 @@ MIT License - see [LICENSE](LICENSE) file for details
 - Initial prototype created with v0
 - Built with React Router v7 and Vercel
 - UI components from shadcn/ui
-- Translation powered by OpenAI
+- Translation powered by OpenAI's gpt-oss-120b model via OpenRouter

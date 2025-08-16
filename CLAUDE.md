@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a web-based translation application built with React Router v7 (SSR mode) deployed on Vercel. It provides bidirectional English/Japanese translation using OpenAI's gpt-4.1-nano model with streaming responses and Redis caching.
+This is a web-based translation application built with React Router v7 (SSR mode) deployed on Vercel. It provides bidirectional English/Japanese translation using OpenAI's gpt-oss-120b model via OpenRouter with streaming responses and Redis caching.
 
 ## Common Development Commands
 
@@ -58,7 +58,7 @@ This project uses Redis for caching translations:
 1. **Client Request** → React Router SSR renders the page
 2. **Translation Request** → Client calls `/api/completion` endpoint
 3. **Cache Check** → SHA-256 hash of normalized text used as cache key
-4. **Direct API Call** → Calls OpenAI API directly from Vercel Functions
+4. **API Call via OpenRouter** → Routes request to OpenAI's gpt-oss-120b model through OpenRouter
 5. **Streaming Response** → Uses Vercel AI SDK's streaming capabilities
 6. **Cache Storage** → Successful translations stored in Redis for 7 days
 
@@ -71,14 +71,22 @@ This project uses Redis for caching translations:
 
 **AI Translation Pipeline**
 ```typescript
-// 1. Create AI client
-const openai = createOpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+// 1. Create OpenRouter client
+const openrouter = createOpenRouter({
+  apiKey: process.env.OPENROUTER_API_KEY,
 });
 
-// 2. Stream translation
+// 2. Stream translation with provider configuration
 streamText({
-  model: openai("gpt-4o-mini"),
+  model: openrouter("openai/gpt-oss-120b", {
+    provider: {
+      order: ["cerebras", "groq"],
+      only: ["cerebras", "groq"],
+      data_collection: "deny",
+      sort: "throughput",
+      allow_fallbacks: false,
+    },
+  }),
   onFinish: async ({ text }) => {
     // 3. Cache result in Redis
     await setCached(cacheKey, text, 604800); // 7 days
@@ -126,8 +134,9 @@ streamText({
 - Errors are intentional - fix issues before committing
 
 **Vercel Region**
-- Fixed to Tokyo (hnd1) to avoid OpenAI API blocks
+- Fixed to Tokyo (hnd1) for optimal performance in Asia
 - Ensures consistent latency and performance
+- OpenRouter handles provider selection and fallbacks
 
 ## Testing Approach
 
