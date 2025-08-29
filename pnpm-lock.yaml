@@ -79,7 +79,7 @@ importers:
         version: 3.3.1
       tw-animate-css:
         specifier: ^1.3.5
-        version: 1.3.6
+        version: 1.3.7
       unist-util-visit:
         specifier: ^5.0.0
         version: 5.0.0
@@ -4200,8 +4200,8 @@ packages:
   turbo-stream@3.1.0:
     resolution: {integrity: sha512-tVI25WEXl4fckNEmrq70xU1XumxUwEx/FZD5AgEcV8ri7Wvrg2o7GEq8U7htrNx3CajciGm+kDyhRf5JB6t7/A==}
 
-  tw-animate-css@1.3.6:
-    resolution: {integrity: sha512-9dy0R9UsYEGmgf26L8UcHiLmSFTHa9+D7+dAt/G/sF5dCnPePZbfgDYinc7/UzAM7g/baVrmS6m9yEpU46d+LA==}
+  tw-animate-css@1.3.7:
+    resolution: {integrity: sha512-lvLb3hTIpB5oGsk8JmLoAjeCHV58nKa2zHYn8yWOoG5JJusH3bhJlF2DLAZ/5NmJ+jyH3ssiAx/2KmbhavJy/A==}
 
   typescript@4.9.5:
     resolution: {integrity: sha512-1FXk9E2Hm+QzZQ7z+McJiHL4NW1F2EzMu9Nq9i3zAaGqibafqYwCVU6WyWAuyQRRzOlxou8xZSyXLEN8oKj24g==}
@@ -8934,7 +8934,7 @@ snapshots:
 
   turbo-stream@3.1.0: {}
 
-  tw-animate-css@1.3.6: {}
+  tw-animate-css@1.3.7: {}
 
   typescript@4.9.5: {}
 
