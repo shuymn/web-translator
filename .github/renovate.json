@@ -41,6 +41,16 @@
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
+    },
+    {
+      "description": "Group all AI SDK packages together",
+      "matchPackageNames": [
+        "ai",
+        "/^@ai-sdk\\/.+$/"
+      ],
+      "groupName": "AI SDK packages",
+      "groupSlug": "ai-sdk",
+      "separateMajorMinor": false
     }
   ],
   "prConcurrentLimit": 3,
