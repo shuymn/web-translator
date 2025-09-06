@@ -40,8 +40,7 @@
       "separateMajorMinor": false
     },
     {
-      "description": "Disable Redis major/minor updates in docker-compose",
-      "matchManagers": ["docker-compose"],
+      "description": "Disable Redis major/minor updates",
       "matchDatasources": ["docker"],
       "matchDepNames": ["redis"],
       "matchUpdateTypes": ["major", "minor"],
