@@ -1,58 +1,41 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:best-practices",
-    ":dependencyDashboard",
-    ":semanticCommitTypeAll(chore)",
-    ":enablePreCommit"
-  ],
-  "timezone": "Asia/Tokyo",
-  "schedule": [
-    "after 10pm every weekday",
-    "every weekend",
-    "before 5am every weekday"
-  ],
-  "labels": [
-    "dependencies",
-    "renovate"
-  ],
-  "assignees": [
-    "@shuymn"
-  ],
+  "extends": ["config:best-practices", ":timezone(Asia/Tokyo)"],
+  "labels": ["dependencies"],
+  "lockFileMaintenance": {
+    "enabled": true,
+    "automerge": true
+  },
+  "postUpdateOptions": ["pnpmDedupe"],
+  "prConcurrentLimit": 0,
+  "minimumReleaseAge": "3 days",
+  "reviewersFromCodeOwners": true,
   "packageRules": [
     {
-      "description": "Disable updates for React Router v7 canary versions",
-      "matchPackageNames": [
-        "react-router",
-        "@react-router/dev"
-      ],
+      "description": "Automerge minor/patch updates for non-major versions",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true
+    },
+    {
+      "description": "Disable updates for React Router canary versions",
+      "matchPackageNames": ["react-router", "@react-router/dev"],
       "matchCurrentVersion": "/canary/",
       "enabled": false
     },
     {
-      "description": "Auto-merge minor and patch dev dependencies",
-      "matchDepTypes": [
-        "devDependencies"
-      ],
-      "matchUpdateTypes": [
-        "minor",
-        "patch"
-      ],
-      "automerge": true,
-      "automergeType": "pr",
-      "platformAutomerge": true
-    },
-    {
       "description": "Group all AI SDK packages together",
-      "matchPackageNames": [
-        "ai",
-        "/^@ai-sdk\\/.+$/"
-      ],
+      "matchPackageNames": ["ai", "/^@ai-sdk\\/.+$/"],
       "groupName": "AI SDK packages",
       "groupSlug": "ai-sdk",
       "separateMajorMinor": false
+    },
+    {
+      "description": "Disable Redis major/minor updates in docker-compose",
+      "matchManagers": ["docker-compose"],
+      "matchPackageNames": ["redis"],
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
     }
-  ],
-  "prConcurrentLimit": 3,
-  "minimumReleaseAge": "3 days"
+  ]
 }
