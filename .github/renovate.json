@@ -6,10 +6,11 @@
     "enabled": true,
     "automerge": true
   },
-  "postUpdateOptions": ["pnpmDedupe"],
-  "prConcurrentLimit": 0,
+  "prHourlyLimit": 0,
   "minimumReleaseAge": "3 days",
+  "internalChecksAsSuccess": true,
   "reviewersFromCodeOwners": true,
+  "assignAutomerge": true,
   "packageRules": [
     {
       "description": "Automerge minor/patch updates for non-major versions",
@@ -19,7 +20,11 @@
     },
     {
       "description": "Disable updates for React Router canary versions",
-      "matchPackageNames": ["react-router", "@react-router/dev"],
+      "matchPackageNames": [
+        "react-router",
+        "react-router-dom",
+        "@react-router/dev"
+      ],
       "matchCurrentVersion": "/canary/",
       "enabled": false
     },
