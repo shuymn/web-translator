@@ -15,7 +15,7 @@
     {
       "description": "Automerge minor/patch updates for non-major versions",
       "matchUpdateTypes": ["minor", "patch"],
-      "matchCurrentVersion": "!/^0/",
+      "matchCurrentVersion": ">=1.0.0",
       "automerge": true
     },
     {
