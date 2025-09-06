@@ -29,7 +29,7 @@
         "react-router-dom",
         "@react-router/dev"
       ],
-      "matchCurrentVersion": "/canary/",
+      "matchCurrentValue": "/canary/",
       "enabled": false
     },
     {
