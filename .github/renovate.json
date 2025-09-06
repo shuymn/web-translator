@@ -38,7 +38,8 @@
     {
       "description": "Disable Redis major/minor updates in docker-compose",
       "matchManagers": ["docker-compose"],
-      "matchPackageNames": ["redis"],
+      "matchDatasources": ["docker"],
+      "matchDepNames": ["redis"],
       "matchUpdateTypes": ["major", "minor"],
       "enabled": false
     }
