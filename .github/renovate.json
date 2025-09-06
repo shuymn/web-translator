@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", ":timezone(Asia/Tokyo)"],
+  "extends": [
+    "config:best-practices",
+    ":timezone(Asia/Tokyo)",
+    "schedule:weekends"
+  ],
   "labels": ["dependencies"],
   "lockFileMaintenance": {
     "enabled": true,
