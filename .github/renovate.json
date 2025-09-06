@@ -1,6 +1,10 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:best-practices", ":timezone(Asia/Tokyo)"],
+  "extends": [
+    "config:best-practices",
+    ":timezone(Asia/Tokyo)",
+    "schedule:weekends"
+  ],
   "labels": ["dependencies"],
   "lockFileMaintenance": {
     "enabled": true,
@@ -25,7 +29,7 @@
         "react-router-dom",
         "@react-router/dev"
       ],
-      "matchCurrentVersion": "/canary/",
+      "matchCurrentValue": "/canary/",
       "enabled": false
     },
     {
@@ -36,9 +40,9 @@
       "separateMajorMinor": false
     },
     {
-      "description": "Disable Redis major/minor updates in docker-compose",
-      "matchManagers": ["docker-compose"],
-      "matchPackageNames": ["redis"],
+      "description": "Disable Redis major/minor updates",
+      "matchDatasources": ["docker"],
+      "matchDepNames": ["redis"],
       "matchUpdateTypes": ["major", "minor"],
       "enabled": false
     }
