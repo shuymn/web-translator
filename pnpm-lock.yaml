@@ -139,8 +139,8 @@ importers:
         specifier: 11.0.5
         version: 11.0.5
       vercel:
-        specifier: 48.2.7
-        version: 48.2.7(rollup@4.52.0)
+        specifier: 48.2.9
+        version: 48.2.9(rollup@4.52.0)
       vite:
         specifier: 7.1.9
         version: 7.1.9(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.30.1)
@@ -1614,8 +1614,8 @@ packages:
     resolution: {integrity: sha512-JekxQ0RApo4gS4un/iMGsIL1/k4KUBe3HmnGcDvzHuFBdQdudEJgTqcsJC7y6Ul4Yw5CeykgvQbX2XeEJd0+DA==}
     engines: {node: '>= 20'}
 
-  '@vercel/python@5.0.8':
-    resolution: {integrity: sha512-qCSb8xwwe/WO9Z7+4/q/Bc7lQB4TfLDnKf3pYKkreNzTyPT32S88QbLMSlpM9uVSidyDTGUSJQ1QQ5cuh9DuRQ==}
+  '@vercel/python@5.0.9':
+    resolution: {integrity: sha512-dZ7nLAXvLWN/H6ZFmZu0uDUURNELEoXzGq77sOW0TsHivfBdTpfad6O1O2zPz/P29Pv00Nv9pW+ZQFiimUYwcQ==}
 
   '@vercel/react-router@1.2.3':
     resolution: {integrity: sha512-trNTWQfjEdqY7+n1dJnvDxjMLSk423iARWe6x8N/eA/Y2w4n6/GsIaXx9rQrbiv/iqOA0wEO7kd66l6th5ytvA==}
@@ -3927,8 +3927,8 @@ packages:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  vercel@48.2.7:
-    resolution: {integrity: sha512-7x4dDdhNkXe92MMQajYJyeJrwhjlARda816Ybza1UY2EXghwTsfq9l3z/u9ouq0Il4J2ehX9RMVOTYM4TqAHhQ==}
+  vercel@48.2.9:
+    resolution: {integrity: sha512-/szF1UafL3CjXzrfuDctEMUYDbD/eKmmynnVBC+S0cQzffhzTO4YU3OgqA5KQgsXxOhnaeGDlMQ56/PT8p+OQw==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -5683,7 +5683,7 @@ snapshots:
 
   '@vercel/oidc@3.0.2': {}
 
-  '@vercel/python@5.0.8': {}
+  '@vercel/python@5.0.9': {}
 
   '@vercel/react-router@1.2.3(@react-router/dev@7.9.3(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.30.1)(react-router@7.9.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(typescript@5.9.3)(vite@7.1.9(@types/node@22.18.8)(jiti@2.6.1)(lightningcss@1.30.1)))(@react-router/node@7.9.3(react-router@7.9.3(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(typescript@5.9.3))(isbot@5.1.31)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)':
     dependencies:
@@ -8156,7 +8156,7 @@ snapshots:
 
   validate-npm-package-name@5.0.1: {}
 
-  vercel@48.2.7(rollup@4.52.0):
+  vercel@48.2.9(rollup@4.52.0):
     dependencies:
       '@vercel/blob': 1.0.2
       '@vercel/build-utils': 12.1.2
@@ -8169,7 +8169,7 @@ snapshots:
       '@vercel/hydrogen': 1.2.4
       '@vercel/next': 4.13.3(rollup@4.52.0)
       '@vercel/node': 5.3.26(rollup@4.52.0)
-      '@vercel/python': 5.0.8
+      '@vercel/python': 5.0.9
       '@vercel/redwood': 2.3.6(rollup@4.52.0)
       '@vercel/remix-builder': 5.4.13(rollup@4.52.0)
       '@vercel/ruby': 2.2.1
