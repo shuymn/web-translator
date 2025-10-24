@@ -139,8 +139,8 @@ importers:
         specifier: 11.0.5
         version: 11.0.5
       vercel:
-        specifier: 48.4.1
-        version: 48.4.1(rollup@4.52.0)
+        specifier: 48.5.0
+        version: 48.5.0(rollup@4.52.0)
       vite:
         specifier: 7.1.10
         version: 7.1.10(@types/node@22.18.12)(jiti@2.6.1)(lightningcss@1.30.1)
@@ -3927,8 +3927,8 @@ packages:
     resolution: {integrity: sha512-OljLrQ9SQdOUqTaQxqL5dEfZWrXExyyWsozYlAWFawPVNuD83igl7uJD2RTkNMbniIYgt8l81eCJGIdQF7avLQ==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  vercel@48.4.1:
-    resolution: {integrity: sha512-EzunA8iHf55CDM5CUQQYR2+xp+1n8AqJziuOJx19w8Io2aQK1NjsRhmsHsogw9zsQ3xpdofaCs4MTjPHFNhdtA==}
+  vercel@48.5.0:
+    resolution: {integrity: sha512-RS1x1pzSOP1obiZzZE/IKwFalFNmRMpqVHxBNsri1o9ldtreknkM83tuyVmkQsY660VJOQhEq/Lo+Wl0jIRuRw==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -8156,7 +8156,7 @@ snapshots:
 
   validate-npm-package-name@5.0.1: {}
 
-  vercel@48.4.1(rollup@4.52.0):
+  vercel@48.5.0(rollup@4.52.0):
     dependencies:
       '@vercel/blob': 1.0.2
       '@vercel/build-utils': 12.1.3
