@@ -13,7 +13,7 @@ importers:
         version: 2.0.92(react@19.2.0)(zod@4.1.11)
       '@openrouter/ai-sdk-provider':
         specifier: ^1.1.2
-        version: 1.2.0(ai@5.0.92(zod@4.1.11))(zod@4.1.11)
+        version: 1.2.1(ai@5.0.92(zod@4.1.11))(zod@4.1.11)
       '@radix-ui/react-select':
         specifier: ^2.2.5
         version: 2.2.6(@types/react-dom@19.2.2(@types/react@19.2.3))(@types/react@19.2.3)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -877,8 +877,8 @@ packages:
     resolution: {integrity: sha512-gGq0NJkIGSwdbUt4yhdF8ZrmkGKVz9vAdVzpOfnom+V8PLSmSOVhZwbNvZZS1EYcJN5hzzKBxmmVVAInM6HQLg==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
 
-  '@openrouter/ai-sdk-provider@1.2.0':
-    resolution: {integrity: sha512-stuIwq7Yb7DNmk3GuCtz+oS3nZOY4TXEV3V5KsknDGQN7Fpu3KRMQVWRc1J073xKdf0FC9EHOctSyzsACmp5Ag==}
+  '@openrouter/ai-sdk-provider@1.2.1':
+    resolution: {integrity: sha512-sDc+/tlEM9VTsYlZ3YMwD9AHinSNusdLFGQhtb50eo5r68U/yBixEHRsKEevqSspiX3V6J06hU7C25t4KE9iag==}
     engines: {node: '>=18'}
     peerDependencies:
       ai: ^5.0.0
@@ -5062,7 +5062,7 @@ snapshots:
     dependencies:
       which: 3.0.1
 
-  '@openrouter/ai-sdk-provider@1.2.0(ai@5.0.92(zod@4.1.11))(zod@4.1.11)':
+  '@openrouter/ai-sdk-provider@1.2.1(ai@5.0.92(zod@4.1.11))(zod@4.1.11)':
     dependencies:
       ai: 5.0.92(zod@4.1.11)
       zod: 4.1.11
