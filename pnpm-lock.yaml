@@ -13,7 +13,7 @@ importers:
         version: 2.0.111(react@19.2.1)(zod@4.1.13)
       '@openrouter/ai-sdk-provider':
         specifier: ^1.1.2
-        version: 1.5.2(ai@5.0.109(zod@4.1.13))(zod@4.1.13)
+        version: 1.5.3(ai@5.0.109(zod@4.1.13))(zod@4.1.13)
       '@radix-ui/react-select':
         specifier: ^2.2.5
         version: 2.2.6(@types/react-dom@19.2.3(@types/react@19.2.7))(@types/react@19.2.7)(react-dom@19.2.1(react@19.2.1))(react@19.2.1)
@@ -869,8 +869,8 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@openrouter/ai-sdk-provider@1.5.2':
-    resolution: {integrity: sha512-3Th0vmJ9pjnwcPc2H1f59Mb0LFvwaREZAScfOQIpUxAHjZ7ZawVKDP27qgsteZPmMYqccNMy4r4Y3kgUnNcKAg==}
+  '@openrouter/ai-sdk-provider@1.5.3':
+    resolution: {integrity: sha512-7SZmmLdp0x1wwuwZARn5R19ZSySHmTiUEM8IvN7O5r3ZH4drI1//BsLpfw56YFsBXu34VRtQzyvko1FLIcgtRg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@toon-format/toon': ^2.0.0
@@ -4903,7 +4903,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.19.1
 
-  '@openrouter/ai-sdk-provider@1.5.2(ai@5.0.109(zod@4.1.13))(zod@4.1.13)':
+  '@openrouter/ai-sdk-provider@1.5.3(ai@5.0.109(zod@4.1.13))(zod@4.1.13)':
     dependencies:
       '@openrouter/sdk': 0.1.27
       ai: 5.0.109(zod@4.1.13)
