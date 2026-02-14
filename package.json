@@ -54,7 +54,7 @@
     "@tailwindcss/vite": "4.1.18",
     "@types/mdast": "4.0.4",
     "@types/node": "24.10.13",
-    "@types/react": "19.2.13",
+    "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@types/unist": "3.0.3",
     "lefthook": "2.1.0",
