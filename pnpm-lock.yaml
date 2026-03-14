@@ -139,8 +139,8 @@ importers:
         specifier: 11.0.5
         version: 11.0.5
       vercel:
-        specifier: 50.31.0
-        version: 50.31.0(rollup@4.59.0)(typescript@5.9.3)
+        specifier: 50.31.1
+        version: 50.31.1(rollup@4.59.0)(typescript@5.9.3)
       vite:
         specifier: 7.3.1
         version: 7.3.1(@types/node@24.12.0)(jiti@2.6.1)(lightningcss@1.31.1)(tsx@4.21.0)
@@ -1923,8 +1923,8 @@ packages:
     peerDependencies:
       typescript: ^4.0.0 || ^5.0.0
 
-  '@vercel/detect-agent@1.1.1':
-    resolution: {integrity: sha512-nSdE8qynHTGQdI6yCNsFnNctqFRBNQceO/K1x+i0VruCtMP1Qzzkjj0oLnqfTRcqLcy/oZMF68lYk3zgKjHhDQ==}
+  '@vercel/detect-agent@1.2.0':
+    resolution: {integrity: sha512-kY0+TPdYr170bVmVSCg0XvwakWQMENy79uf/sM86DF/HVabaagdTjPwSPujlZid6Bgr66R4kHhjg4bkOxEzFDA==}
     engines: {node: '>=14'}
 
   '@vercel/elysia@0.1.48':
@@ -1967,8 +1967,8 @@ packages:
   '@vercel/nestjs@0.2.52':
     resolution: {integrity: sha512-yfy4rpWJ1BRWZ1xBBPew0egVIblFe6G7laCKDzyESnbw19zY0F16g9HCu1H/0IfuKIQvOc95dtbmBsqLm9jyqw==}
 
-  '@vercel/next@4.16.0':
-    resolution: {integrity: sha512-rNwleYnEBub1v1ztXj/LCRCQZlV7FYvIXPmEPSxT/SMgG+BjRgG9QCtTdqKlyX3cqdtvGUAUapa2HnUp5J6KJA==}
+  '@vercel/next@4.16.1':
+    resolution: {integrity: sha512-gwy3XQRZ/f6RdKuC7BZIRMAzUOQf/R5+k9LMf1LcOm1CVZOLpDhDkeZMTG5vb3Lk9LWwBrJJ2ohhZaYuYEOHaw==}
 
   '@vercel/nft@1.1.1':
     resolution: {integrity: sha512-mKMGa7CEUcXU75474kOeqHbtvK1kAcu4wiahhmlUenB5JbTQB8wVlDI8CyHR3rpGo0qlzoRWqcDzI41FUoBJCA==}
@@ -4173,8 +4173,8 @@ packages:
       typescript:
         optional: true
 
-  vercel@50.31.0:
-    resolution: {integrity: sha512-ceeffndA9bb4LR/YASFNOZOSlLdl1qUap5jfF9Jw9FmCwh9OwbyiTdFAgeHm9NB27GxUBTDSYH54E9lxlD9AMQ==}
+  vercel@50.31.1:
+    resolution: {integrity: sha512-cu8ukSJVuKecKavhMWMP/sgcetQ/6qsEaIGf9626tWXpRddUsLLJAsGyZUoZxo+EshMEp5kjuLZvTonyOUBLcA==}
     engines: {node: '>= 18'}
     hasBin: true
 
@@ -5915,7 +5915,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@vercel/detect-agent@1.1.1': {}
+  '@vercel/detect-agent@1.2.0': {}
 
   '@vercel/elysia@0.1.48(rollup@4.59.0)':
     dependencies:
@@ -6037,7 +6037,7 @@ snapshots:
       - rollup
       - supports-color
 
-  '@vercel/next@4.16.0(rollup@4.59.0)':
+  '@vercel/next@4.16.1(rollup@4.59.0)':
     dependencies:
       '@vercel/nft': 1.1.1(rollup@4.59.0)
     transitivePeerDependencies:
@@ -8496,7 +8496,7 @@ snapshots:
 
   tsx@4.21.0:
     dependencies:
-      esbuild: 0.27.0
+      esbuild: 0.27.4
       get-tsconfig: 4.13.6
     optionalDependencies:
       fsevents: 2.3.3
@@ -8593,12 +8593,12 @@ snapshots:
     optionalDependencies:
       typescript: 5.9.3
 
-  vercel@50.31.0(rollup@4.59.0)(typescript@5.9.3):
+  vercel@50.31.1(rollup@4.59.0)(typescript@5.9.3):
     dependencies:
       '@vercel/backends': 0.0.45(rollup@4.59.0)(typescript@5.9.3)
       '@vercel/blob': 2.3.0
       '@vercel/build-utils': 13.8.0
-      '@vercel/detect-agent': 1.1.1
+      '@vercel/detect-agent': 1.2.0
       '@vercel/elysia': 0.1.48(rollup@4.59.0)
       '@vercel/express': 0.1.57(rollup@4.59.0)(typescript@5.9.3)
       '@vercel/fastify': 0.1.51(rollup@4.59.0)
@@ -8609,7 +8609,7 @@ snapshots:
       '@vercel/hydrogen': 1.3.6
       '@vercel/koa': 0.1.31(rollup@4.59.0)
       '@vercel/nestjs': 0.2.52(rollup@4.59.0)
-      '@vercel/next': 4.16.0(rollup@4.59.0)
+      '@vercel/next': 4.16.1(rollup@4.59.0)
       '@vercel/node': 5.6.15(rollup@4.59.0)
       '@vercel/python': 6.22.0
       '@vercel/redwood': 2.4.10(rollup@4.59.0)
