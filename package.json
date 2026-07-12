@@ -47,7 +47,7 @@
     "@biomejs/biome": "2.1.4",
     "@commitlint/cli": "20.5.3",
     "@commitlint/config-conventional": "20.5.3",
-    "@react-router/dev": "7.13.2",
+    "@react-router/dev": "7.18.1",
     "@shikijs/langs": "4.2.0",
     "@shikijs/rehype": "4.2.0",
     "@shikijs/themes": "4.2.0",
